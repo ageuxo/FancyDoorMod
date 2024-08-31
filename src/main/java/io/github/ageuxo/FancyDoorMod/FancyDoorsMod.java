@@ -1,0 +1,99 @@
+package io.github.ageuxo.FancyDoorMod;
+
+import io.github.ageuxo.FancyDoorMod.adastra.ModBlockStateProvider;
+import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
+import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
+import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
+
+@Mod(FancyDoorsMod.MOD_ID)
+public class FancyDoorsMod {
+    public static final String MOD_ID = "fancydoors";
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK.key(), MOD_ID);
+    public static final RegistryObject<Block> IRON_SLIDING_DOOR = BLOCKS.register("iron_sliding_door",
+            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+    public static final RegistryObject<Block> STEEL_SLIDING_DOOR = BLOCKS.register("steel_sliding_door",
+            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+    /*public static final RegistryObject<Block> AIRLOCK_SLIDING_DOOR = BLOCKS.register("airlock_sliding_door",
+            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(18).mapColor(MapColor.COLOR_GRAY)));
+    public static final RegistryObject<Block> REINFORCED_SLIDING_DOOR = BLOCKS.register("reinforced_sliding_door",
+            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).strength(25, 40).mapColor(MapColor.COLOR_GRAY)));*/
+
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredRegister<BlockEntityType<?>> BE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE.key(), MOD_ID);
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SLIDING_DOOR = BE_TYPES.register("sliding_door",
+            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_SLIDING_DOOR.get(), STEEL_SLIDING_DOOR.get()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT.key(), MOD_ID);
+    public static final RegistryObject<SoundEvent> WRENCH_SOUND = SOUNDS.register("wrenched", ()-> SoundEvent.createVariableRangeEvent(modRL("wrench")));
+    public static final RegistryObject<SoundEvent> SLIDING_DOOR_CLOSE = SOUNDS.register("sliding_door_close", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_close")));
+    public static final RegistryObject<SoundEvent> SLIDING_DOOR_OPEN = SOUNDS.register("sliding_door_open", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_open")));
+
+    // Components
+    public static final Component DOOR_LOCKED = Component.translatable("fancydoors.sliding.locked");
+    public static final Component DOOR_UNLOCKED = Component.translatable("fancydoors.sliding.unlocked");
+    public static final Component SLIDING_DOOR_INFO = Component.translatable("fancydoors.sliding.info").withStyle(ChatFormatting.GRAY);
+
+    public FancyDoorsMod() {
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        BLOCKS.register(modBus);
+
+        BLOCKS.getEntries().forEach((block)-> {
+            ITEMS.register(block.getId().getPath(), ()-> new BlockItem(block.get(), new Item.Properties()));
+        });
+        ITEMS.register(modBus);
+        SOUNDS.register(modBus);
+        BE_TYPES.register(modBus);
+
+        modBus.addListener(FancyDoorsMod::onDatagen);
+    }
+
+    public static ResourceLocation modRL(String path) {
+        return new ResourceLocation(MOD_ID, path);
+    }
+
+    public static <BE extends BlockEntity> BlockEntityType<BE> registerBlockEntityType(BlockEntityType.BlockEntitySupplier<BE> supplier, Block... blocks){
+        return BlockEntityType.Builder.of(supplier, blocks).build(null);
+    }
+
+    public static void onDatagen(GatherDataEvent event) {
+        var generator = event.getGenerator();
+        generator.addProvider(true, new ModBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+    }
+
+    @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public static class Client {
+        @SubscribeEvent
+        public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event){
+            event.registerBlockEntityRenderer(SLIDING_DOOR.get(), SlidingDoorBlockEntityRenderer::new);
+        }
+    }
+
+}

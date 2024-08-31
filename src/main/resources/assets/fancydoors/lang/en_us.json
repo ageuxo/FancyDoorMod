@@ -1,0 +1,5 @@
+{
+  "fancydoors.sliding.info": "A large 3x3 door. Shift-right-click with a wrench to lock it. Locked doors can only be opened with redstone.",
+  "fancydoors.sliding.locked": "\"Locked Door\"",
+  "fancydoors.sliding.unlocked": "\"Unlocked Door\""
+}
