@@ -1,11 +1,11 @@
 package io.github.ageuxo.FancyDoorMod;
 
-import io.github.ageuxo.FancyDoorMod.adastra.ModBlockStateProvider;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -42,6 +42,7 @@ public class FancyDoorsMod {
     public static final RegistryObject<Block> REINFORCED_SLIDING_DOOR = BLOCKS.register("reinforced_sliding_door",
             ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).strength(25, 40).mapColor(MapColor.COLOR_GRAY)));*/
 
+    @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
 
     @SuppressWarnings("deprecation")
@@ -84,11 +85,11 @@ public class FancyDoorsMod {
     }
 
     public static void onDatagen(GatherDataEvent event) {
-        var generator = event.getGenerator();
+        DataGenerator generator = event.getGenerator();
         generator.addProvider(true, new ModBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class Client {
         @SubscribeEvent
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event){

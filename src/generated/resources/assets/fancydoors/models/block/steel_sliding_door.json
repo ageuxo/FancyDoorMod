@@ -1,5 +1,5 @@
 {
-  "parent": "fancydoors:block/steel_sliding_door",
+  "parent": "fancydoors:block/sliding_door",
   "textures": {
     "0": "fancydoors:block/sliding_door/steel_sliding_door",
     "particle": "fancydoors:block/sliding_door/steel_sliding_door"

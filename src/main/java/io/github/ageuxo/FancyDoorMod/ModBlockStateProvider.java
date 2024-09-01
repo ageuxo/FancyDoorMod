@@ -1,9 +1,9 @@
-package io.github.ageuxo.FancyDoorMod.adastra;
+package io.github.ageuxo.FancyDoorMod;
 
-import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -22,22 +22,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     public void slidingDoor(RegistryObject<Block> blockObj) {
-        var block = blockObj.get();
-        String name = blockObj.getId().getPath();
-        getVariantBuilder(block).forAllStates(state -> {
-            ResourceLocation texture = modLoc("block/sliding_door/%s".formatted(name));
+        String path = blockObj.getId().getPath();
+        ResourceLocation texture = modLoc("block/sliding_door/" + path);
+        BlockModelBuilder baseModel = models()
+                .withExistingParent(path, modLoc("block/sliding_door"))
+                        .texture("0", texture)
+                        .texture("particle", texture);
 
-            return ConfiguredModel.builder()
-                    .modelFile(models().getBuilder(name)
-                            .texture("0", texture)
-                            .texture("particle", texture)
-                            .parent(models().getExistingFile(modLoc("block/sliding_door"))))
-                    .build();
-        });
+        getVariantBuilder(blockObj.get()).forAllStates((state)->
+                ConfiguredModel.builder()
+                        .modelFile(baseModel)
+                        .build());
     }
 
     public void slidingDoorWithItem(RegistryObject<Block> blockObj) {
         slidingDoor(blockObj);
-        simpleBlockItem(blockObj.get(), models().withExistingParent(blockObj.getId().getPath(), blockObj.getId()));
+        simpleBlockItem(blockObj.get(), models().getExistingFile(modLoc("block/" + blockObj.getId().getPath())));
     }
 }
