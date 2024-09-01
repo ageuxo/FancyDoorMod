@@ -37,10 +37,6 @@ public class FancyDoorsMod {
             ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> STEEL_SLIDING_DOOR = BLOCKS.register("steel_sliding_door",
             ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
-    /*public static final RegistryObject<Block> AIRLOCK_SLIDING_DOOR = BLOCKS.register("airlock_sliding_door",
-            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(18).mapColor(MapColor.COLOR_GRAY)));
-    public static final RegistryObject<Block> REINFORCED_SLIDING_DOOR = BLOCKS.register("reinforced_sliding_door",
-            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).strength(25, 40).mapColor(MapColor.COLOR_GRAY)));*/
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
@@ -66,9 +62,9 @@ public class FancyDoorsMod {
 
         BLOCKS.register(modBus);
 
-        BLOCKS.getEntries().forEach((block)-> {
-            ITEMS.register(block.getId().getPath(), ()-> new BlockItem(block.get(), new Item.Properties()));
-        });
+        BLOCKS.getEntries().forEach( (block)->
+                ITEMS.register(block.getId().getPath(), ()-> new BlockItem(block.get(), new Item.Properties()))
+        );
         ITEMS.register(modBus);
         SOUNDS.register(modBus);
         BE_TYPES.register(modBus);
@@ -81,6 +77,7 @@ public class FancyDoorsMod {
     }
 
     public static <BE extends BlockEntity> BlockEntityType<BE> registerBlockEntityType(BlockEntityType.BlockEntitySupplier<BE> supplier, Block... blocks){
+        //noinspection DataFlowIssue
         return BlockEntityType.Builder.of(supplier, blocks).build(null);
     }
 
