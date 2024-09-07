@@ -48,7 +48,7 @@ public class SlidingDoorBlockEntityRenderer implements BlockEntityRenderer<Slidi
         poseStack.translate(0.5f, 0, 0.5f);
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
         poseStack.translate(-0.5f, 0, -0.5f);
-        poseStack.translate(0, 0, 0.8125f);
+        poseStack.translate(0, 0, 0.87625f); // FancyDoors: Tweak alignment to fit our models
 
         minecraft.getBlockRenderer().getModelRenderer().renderModel(poseStack.last(),
                 buffer.getBuffer(Sheets.cutoutBlockSheet()),
