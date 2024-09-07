@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -16,7 +17,11 @@ public class SlidingDoorBlockEntity extends BlockEntity implements TickableBlock
     private int lastSlideTicks;
 
     public SlidingDoorBlockEntity(BlockPos pos, BlockState state) {
-        super(FancyDoorsMod.SLIDING_DOOR.get(), pos, state); // FancyDoors: Change location of BE Type
+        this(FancyDoorsMod.SLIDING_DOOR.get(), pos, state); // FancyDoors: Change location of BE Type
+    }
+
+    public SlidingDoorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+        super(pType, pPos, pBlockState);
     }
 
     @Override

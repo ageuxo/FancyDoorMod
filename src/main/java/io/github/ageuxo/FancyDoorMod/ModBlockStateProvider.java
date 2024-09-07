@@ -19,6 +19,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         slidingDoorWithItem(FancyDoorsMod.IRON_SLIDING_DOOR);
         slidingDoorWithItem(FancyDoorsMod.STEEL_SLIDING_DOOR);
+        singleSlidingDoor(FancyDoorsMod.SINGLE_SLIDING_DOOR);
+    }
+
+    public void singleSlidingDoor(RegistryObject<Block> blockObj) {
+        String path = blockObj.getId().getPath();
+        ResourceLocation texture = modLoc("block/sliding_door/" + path);
+        BlockModelBuilder baseModel = models()
+                .withExistingParent(path, modLoc("block/single_sliding_door"))
+                .texture("0", texture)
+                .texture("particle", texture);
+
+        getVariantBuilder(blockObj.get()).forAllStates((state)->
+                ConfiguredModel.builder()
+                        .modelFile(baseModel)
+                        .build());
     }
 
     public void slidingDoor(RegistryObject<Block> blockObj) {

@@ -3,6 +3,9 @@ package io.github.ageuxo.FancyDoorMod;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
+import io.github.ageuxo.FancyDoorMod.block.SingleSlidingDoorBlock;
+import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
+import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
@@ -37,6 +40,8 @@ public class FancyDoorsMod {
             ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> STEEL_SLIDING_DOOR = BLOCKS.register("steel_sliding_door",
             ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+    public static final RegistryObject<Block> SINGLE_SLIDING_DOOR = BLOCKS.register("iron_single_sliding_door",
+            ()->new SingleSlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
@@ -45,6 +50,8 @@ public class FancyDoorsMod {
     public static final DeferredRegister<BlockEntityType<?>> BE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE.key(), MOD_ID);
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SLIDING_DOOR = BE_TYPES.register("sliding_door",
             ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_SLIDING_DOOR.get(), STEEL_SLIDING_DOOR.get()));
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
+            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, SINGLE_SLIDING_DOOR.get()));
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT.key(), MOD_ID);
@@ -91,6 +98,7 @@ public class FancyDoorsMod {
         @SubscribeEvent
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event){
             event.registerBlockEntityRenderer(SLIDING_DOOR.get(), SlidingDoorBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
         }
     }
 

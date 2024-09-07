@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "fancydoors:block/sliding_door/single_sliding_door",
+		"particle": "fancydoors:block/sliding_door/single_sliding_door"
+	},
+	"elements": [
+		{
+			"from": [-16, -16, 0],
+			"to": [32, 32, 2],
+			"faces": {
+				"north": {"uv": [0, 0, 6, 6], "texture": "#0"},
+				"east": {"uv": [6.125, 0, 6.375, 6], "texture": "#0"},
+				"south": {"uv": [0, 6.125, 6, 12.125], "texture": "#0"},
+				"west": {"uv": [6.125, 6.125, 6.375, 12.125], "texture": "#0"},
+				"up": {"uv": [12.5, 0.25, 6.5, 0], "texture": "#0"},
+				"down": {"uv": [12.5, 0.375, 6.5, 0.625], "texture": "#0"}
+			}
+		}
+	]
+}
