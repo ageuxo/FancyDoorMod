@@ -36,11 +36,9 @@ public class FancyDoorsMod {
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK.key(), MOD_ID);
-    public static final RegistryObject<Block> IRON_SLIDING_DOOR = BLOCKS.register("iron_sliding_door",
+    public static final RegistryObject<Block> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
             ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
-    public static final RegistryObject<Block> STEEL_SLIDING_DOOR = BLOCKS.register("steel_sliding_door",
-            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
-    public static final RegistryObject<Block> SINGLE_SLIDING_DOOR = BLOCKS.register("iron_single_sliding_door",
+    public static final RegistryObject<Block> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
             ()->new SingleSlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
 
     @SuppressWarnings("deprecation")
@@ -48,10 +46,10 @@ public class FancyDoorsMod {
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<BlockEntityType<?>> BE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE.key(), MOD_ID);
-    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SLIDING_DOOR = BE_TYPES.register("sliding_door",
-            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_SLIDING_DOOR.get(), STEEL_SLIDING_DOOR.get()));
-    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
-            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, SINGLE_SLIDING_DOOR.get()));
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("sliding_door",
+            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get()));
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
+            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get()));
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT.key(), MOD_ID);
@@ -97,8 +95,8 @@ public class FancyDoorsMod {
     public static class Client {
         @SubscribeEvent
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event){
-            event.registerBlockEntityRenderer(SLIDING_DOOR.get(), SlidingDoorBlockEntityRenderer::new);
-            event.registerBlockEntityRenderer(SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
+            event.registerBlockEntityRenderer(DOUBLE_3X3_SLIDING_DOOR_BE.get(), SlidingDoorBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(SINGLE_3X3_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
         }
     }
 

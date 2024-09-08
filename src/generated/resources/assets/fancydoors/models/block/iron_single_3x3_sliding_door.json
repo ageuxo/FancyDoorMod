@@ -1,0 +1,7 @@
+{
+  "parent": "fancydoors:block/single_3x3_sliding_door",
+  "textures": {
+    "0": "fancydoors:block/sliding_door/iron_single_3x3_sliding_door",
+    "particle": "fancydoors:block/sliding_door/iron_single_3x3_sliding_door"
+  }
+}

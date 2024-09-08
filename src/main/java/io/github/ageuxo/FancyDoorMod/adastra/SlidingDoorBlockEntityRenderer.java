@@ -5,10 +5,13 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -27,21 +30,8 @@ public class SlidingDoorBlockEntityRenderer implements BlockEntityRenderer<Slidi
         var minecraft = Minecraft.getInstance();
         var model = minecraft.getBlockRenderer().getBlockModel(state);
 
-        poseStack.translate(0.5f, 1, 0.5f);
-        poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
-        poseStack.translate(-0.5f, 0, -0.5f);
-
-        poseStack.translate(slide, 0, 0.0625f);
-        if (direction.getAxis() == Direction.Axis.Z) {
-            poseStack.translate(0, 0, 0.6875f);
-        }
-
-        minecraft.getBlockRenderer().getModelRenderer().renderModel(poseStack.last(),
-            buffer.getBuffer(Sheets.cutoutBlockSheet()),
-            state,
-            model,
-            1f, 1f, 1f,
-            packedLight, packedOverlay);
+        // FancyDoors: Extract door rendering to static method for use in other BERs
+        renderDoor(poseStack, buffer, packedLight, packedOverlay, direction, slide, state, model, minecraft.getBlockRenderer().getModelRenderer());
 
         poseStack.translate(-slide - slide, 0, 0);
 
@@ -59,5 +49,24 @@ public class SlidingDoorBlockEntityRenderer implements BlockEntityRenderer<Slidi
 
         //FancyDoors: Remove SimpleSlidingDoor bits
         poseStack.popPose();
+    }
+
+    // FancyDoors: Extract door rendering to static method for use in other BERs
+    public static void renderDoor(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, Direction direction, float slide, BlockState state, BakedModel model, ModelBlockRenderer modelRenderer) {
+        poseStack.translate(0.5f, 1, 0.5f);
+        poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
+        poseStack.translate(-0.5f, 0, -0.5f);
+
+        poseStack.translate(slide, 0, 0.0625f);
+        if (direction.getAxis() == Direction.Axis.Z) {
+            poseStack.translate(0, 0, 0.6875f);
+        }
+
+        modelRenderer.renderModel(poseStack.last(),
+            buffer.getBuffer(Sheets.cutoutBlockSheet()),
+                state,
+                model,
+            1f, 1f, 1f,
+                packedLight, packedOverlay);
     }
 }

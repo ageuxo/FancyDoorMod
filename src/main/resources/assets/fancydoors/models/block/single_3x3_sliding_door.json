@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "fancydoors:block/sliding_door_base",
 	"texture_size": [128, 128],
 	"textures": {
 		"0": "fancydoors:block/sliding_door/single_sliding_door",

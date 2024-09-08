@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "fancydoors:block/sliding_door_base",
 	"render_type": "cutout",
 	"texture_size": [64, 64],
 	"textures": {
@@ -19,5 +20,8 @@
 				"down": {"uv": [6, 12.25, 0, 13], "texture": "#0"}
 			}
 		}
-	]
+	],
+	"display": {
+
+	}
 }
