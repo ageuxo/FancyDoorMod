@@ -3,8 +3,8 @@ package io.github.ageuxo.FancyDoorMod;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
-import io.github.ageuxo.FancyDoorMod.block.SingleSlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
+import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -37,17 +37,20 @@ public class FancyDoorsMod {
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK.key(), MOD_ID);
     public static final RegistryObject<Block> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
-            ()->new SlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+            ()-> new SlidingDoorBlock<>(DoorParts.PARTS_3X3, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
-            ()->new SingleSlidingDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+            ()-> new SlidingDoorBlock<>(DoorParts.PARTS_3X3, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+
+    public static final RegistryObject<Block> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
+            ()->new SlidingDoorBlock<>(DoorParts.PARTS_2X3, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<BlockEntityType<?>> BE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE.key(), MOD_ID);
-    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("sliding_door",
-            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get()));
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("double_sliding_door",
+            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get()));
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
             ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get()));
 

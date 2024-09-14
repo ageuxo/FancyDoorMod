@@ -1,11 +1,12 @@
 package io.github.ageuxo.FancyDoorMod.adastra;
 
+import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum SlidingDoorPartProperty implements StringRepresentable {
+public enum SlidingDoorPartProperty implements StringRepresentable, DoorPart { // FancyDoors: add interface
     TOP_LEFT(-1, 2),
     TOP(0, 2),
     TOP_RIGHT(1, 2),
