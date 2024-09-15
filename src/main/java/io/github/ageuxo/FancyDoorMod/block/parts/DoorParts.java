@@ -4,6 +4,8 @@ import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorPartProperty;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
+import java.util.Locale;
+
 public final class DoorParts<E extends Enum<E> & DoorPart & StringRepresentable> {
 
     public static final DoorParts<DoorPart2x3> PARTS_2X3 = new DoorParts<>(DoorPart2x3.BOTTOM_RIGHT);
@@ -15,7 +17,7 @@ public final class DoorParts<E extends Enum<E> & DoorPart & StringRepresentable>
     public DoorParts(E mainPart) {
         this.mainPart = mainPart;
         Class<E> partClass = (Class<E>) mainPart.getClass();
-        this.property = EnumProperty.create(partClass.getName(), partClass);
+        this.property = EnumProperty.create("part", partClass);
     }
 
     public E mainPart() {

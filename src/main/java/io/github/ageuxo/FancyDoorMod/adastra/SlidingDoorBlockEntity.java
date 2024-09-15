@@ -17,7 +17,7 @@ public class SlidingDoorBlockEntity extends BlockEntity implements TickableBlock
     private int lastSlideTicks;
 
     public SlidingDoorBlockEntity(BlockPos pos, BlockState state) {
-        this(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR_BE.get(), pos, state); // FancyDoors: Change location of BE Type
+        this(FancyDoorsMod.DOUBLE_SLIDING_DOOR_BE.get(), pos, state); // FancyDoors: Change location of BE Type
     }
 
     public SlidingDoorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {

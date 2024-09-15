@@ -69,7 +69,7 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, LOCKED, POWERED, doorParts.property()); // FancyDoors: Replace with doorPart prop
+        builder.add(FACING, OPEN, LOCKED, POWERED); // FancyDoors: Replace with doorPart prop
     }
 
     @Override

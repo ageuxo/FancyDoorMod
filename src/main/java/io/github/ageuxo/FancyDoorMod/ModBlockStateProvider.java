@@ -9,7 +9,7 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public class ModBlockStateProvider extends BlockStateProvider {
 
@@ -19,16 +19,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        blockWithItem(this::double3x3SlidingDoor, FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR);
+        sizedBlockWithItem("3x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR);
+        sizedBlockWithItem("3x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR);
 
-        blockWithItem(this::single3x3SlidingDoor, FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR);
+        sizedBlockWithItem("2x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_2X3_SLIDING_DOOR);
+        sizedBlockWithItem("2x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR);
+
     }
 
-    public void single3x3SlidingDoor(RegistryObject<Block> blockObj) {
+    public void singleSlidingDoor(String size, RegistryObject<Block> blockObj) {
         String path = blockObj.getId().getPath();
         ResourceLocation texture = modLoc("block/sliding_door/" + path);
         BlockModelBuilder baseModel = models()
-                .withExistingParent(path, modLoc("block/single_3x3_sliding_door"))
+                .withExistingParent(path, modLoc("block/single_"+ size + "_sliding_door"))
                 .texture("0", texture)
                 .texture("particle", texture);
 
@@ -38,11 +41,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .build());
     }
 
-    public void double3x3SlidingDoor(RegistryObject<Block> blockObj) {
+    public void doubleSlidingDoor(String size, RegistryObject<Block> blockObj) {
         String path = blockObj.getId().getPath();
         ResourceLocation texture = modLoc("block/sliding_door/" + path);
         BlockModelBuilder baseModel = models()
-                .withExistingParent(path, modLoc("block/double_3x3_sliding_door"))
+                .withExistingParent(path, modLoc("block/double_"+ size +"_sliding_door"))
                         .texture("0", texture)
                         .texture("particle", texture);
 
@@ -52,8 +55,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .build());
     }
 
-    public void blockWithItem(Consumer<RegistryObject<Block>> blockModelGenerator, RegistryObject<Block> blockObj) {
-        blockModelGenerator.accept(blockObj);
+    public void sizedBlockWithItem(String size, BiConsumer<String, RegistryObject<Block>> blockModelGenerator, RegistryObject<Block> blockObj) {
+        blockModelGenerator.accept(size, blockObj);
         simpleBlockItem(blockObj.get(), models().getExistingFile(modLoc("block/" + blockObj.getId().getPath())));
     }
 }

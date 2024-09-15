@@ -4,6 +4,7 @@ import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
 import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
+import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
 import net.minecraft.ChatFormatting;
@@ -12,6 +13,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +21,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -29,6 +33,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 @Mod(FancyDoorsMod.MOD_ID)
 public class FancyDoorsMod {
@@ -37,34 +42,36 @@ public class FancyDoorsMod {
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK.key(), MOD_ID);
     public static final RegistryObject<Block> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
-            ()-> new SlidingDoorBlock<>(DoorParts.PARTS_3X3, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+            ()-> slidingDoor(DoorParts.PARTS_3X3));
     public static final RegistryObject<Block> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
-            ()-> new SlidingDoorBlock<>(DoorParts.PARTS_3X3, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+            ()-> slidingDoor(DoorParts.PARTS_3X3));
 
+    public static final RegistryObject<Block> IRON_SINGLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_single_2x3_sliding_door",
+            ()-> slidingDoor(DoorParts.PARTS_2X3));
     public static final RegistryObject<Block> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
-            ()->new SlidingDoorBlock<>(DoorParts.PARTS_2X3, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)));
+            ()-> slidingDoor(DoorParts.PARTS_2X3));
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<BlockEntityType<?>> BE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE.key(), MOD_ID);
-    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("double_sliding_door",
-            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get()));
-    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_3X3_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
-            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get()));
 
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_SLIDING_DOOR_BE = BE_TYPES.register("double_sliding_door",
+            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get()));
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
+            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get(), IRON_SINGLE_2X3_SLIDING_DOOR.get()));
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT.key(), MOD_ID);
+
     public static final RegistryObject<SoundEvent> WRENCH_SOUND = SOUNDS.register("wrenched", ()-> SoundEvent.createVariableRangeEvent(modRL("wrench")));
     public static final RegistryObject<SoundEvent> SLIDING_DOOR_CLOSE = SOUNDS.register("sliding_door_close", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_close")));
     public static final RegistryObject<SoundEvent> SLIDING_DOOR_OPEN = SOUNDS.register("sliding_door_open", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_open")));
-
     // Components
+
     public static final Component DOOR_LOCKED = Component.translatable("fancydoors.sliding.locked");
     public static final Component DOOR_UNLOCKED = Component.translatable("fancydoors.sliding.unlocked");
     public static final Component SLIDING_DOOR_INFO = Component.translatable("fancydoors.sliding.info").withStyle(ChatFormatting.GRAY);
-
     public FancyDoorsMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -89,6 +96,16 @@ public class FancyDoorsMod {
         return BlockEntityType.Builder.of(supplier, blocks).build(null);
     }
 
+    private static <P extends Enum<P> & DoorPart & StringRepresentable> @NotNull SlidingDoorBlock<P> slidingDoor(DoorParts<P> doorParts) {
+        return new SlidingDoorBlock<>(doorParts, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)){
+            @Override
+            protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+                super.createBlockStateDefinition(builder);
+                builder.add(doorParts.property());
+            }
+        };
+    }
+
     public static void onDatagen(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         generator.addProvider(true, new ModBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
@@ -98,8 +115,8 @@ public class FancyDoorsMod {
     public static class Client {
         @SubscribeEvent
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event){
-            event.registerBlockEntityRenderer(DOUBLE_3X3_SLIDING_DOOR_BE.get(), SlidingDoorBlockEntityRenderer::new);
-            event.registerBlockEntityRenderer(SINGLE_3X3_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
+            event.registerBlockEntityRenderer(DOUBLE_SLIDING_DOOR_BE.get(), SlidingDoorBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
         }
     }
 
