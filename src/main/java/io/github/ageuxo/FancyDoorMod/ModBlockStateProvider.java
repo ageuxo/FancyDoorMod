@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -22,9 +23,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         sizedBlockWithItem("3x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR);
         sizedBlockWithItem("3x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR);
 
-        sizedBlockWithItem("2x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_2X3_SLIDING_DOOR);
-        sizedBlockWithItem("2x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR);
+//        sizedBlockWithItem("2x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_2X3_SLIDING_DOOR);
+//        sizedBlockWithItem("2x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR);
 
+        allVariants(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR,
+                models().getExistingFile(FancyDoorsMod.modRL("block/sliding_doors/double_3x3")));
+        allVariants(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR,
+                models().getExistingFile(FancyDoorsMod.modRL("block/sliding_doors/double_3x3_caution")));
+    }
+
+    public void allVariants(RegistryObject<Block> blockObj, ModelFile model) {
+        getVariantBuilder(blockObj.get()).forAllStates((state)->
+                ConfiguredModel.builder()
+                        .modelFile(model)
+                        .build());
     }
 
     public void singleSlidingDoor(String size, RegistryObject<Block> blockObj) {

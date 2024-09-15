@@ -51,6 +51,11 @@ public class FancyDoorsMod {
     public static final RegistryObject<Block> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
             ()-> slidingDoor(DoorParts.PARTS_2X3));
 
+    public static final RegistryObject<Block> DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("double_3x3_sliding_door",
+            ()-> slidingDoor(DoorParts.PARTS_3X3));
+    public static final RegistryObject<Block> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
+            ()-> slidingDoor(DoorParts.PARTS_3X3));
+
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
 
@@ -58,7 +63,7 @@ public class FancyDoorsMod {
     public static final DeferredRegister<BlockEntityType<?>> BE_TYPES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE.key(), MOD_ID);
 
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_SLIDING_DOOR_BE = BE_TYPES.register("double_sliding_door",
-            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get()));
+            ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get(), DOUBLE_3X3_SLIDING_DOOR.get(), DOUBLE_3X3_CAUTION_SLIDING_DOOR.get()));
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
             ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get(), IRON_SINGLE_2X3_SLIDING_DOOR.get()));
     @SuppressWarnings("deprecation")
