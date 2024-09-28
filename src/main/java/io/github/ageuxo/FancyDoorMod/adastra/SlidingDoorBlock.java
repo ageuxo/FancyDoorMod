@@ -74,12 +74,12 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(FACING)) {
-            default -> NORTH_SHAPE;
-            case EAST -> EAST_SHAPE;
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> WEST_SHAPE;
-        };
+        Direction.Axis axis = state.getValue(FACING).getAxis();
+        if (axis == Direction.Axis.X) {
+            return DoorPart.THICK_N2S_SHAPE;
+        } else {
+            return DoorPart.THICK_E2W_SHAPE;
+        }
     }
 
     @Override

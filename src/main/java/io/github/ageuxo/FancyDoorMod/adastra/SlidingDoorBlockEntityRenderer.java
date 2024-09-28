@@ -57,9 +57,13 @@ public class SlidingDoorBlockEntityRenderer implements BlockEntityRenderer<Slidi
         poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, 0, -0.5f);
 
-        poseStack.translate(slide, 0, 0.0625f);
+        // FancyDoors: Make offsets fields
+        float offset = 0.5f;
+        float zOffset = -0.5f;
+
+        poseStack.translate(slide, 0, offset);
         if (direction.getAxis() == Direction.Axis.Z) {
-            poseStack.translate(0, 0, 0.6875f);
+            poseStack.translate(0, 0, offset + zOffset);
         }
 
         modelRenderer.renderModel(poseStack.last(),
