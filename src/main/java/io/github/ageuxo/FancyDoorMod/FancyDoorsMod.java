@@ -3,9 +3,12 @@ package io.github.ageuxo.FancyDoorMod;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
+import io.github.ageuxo.FancyDoorMod.block.DetectorBlock;
+import io.github.ageuxo.FancyDoorMod.block.entity.DetectorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
+import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -56,6 +59,9 @@ public class FancyDoorsMod {
     public static final RegistryObject<Block> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
             ()-> slidingDoor(DoorParts.PARTS_3X3));
 
+    public static final RegistryObject<Block> DETECTOR_BLOCK = BLOCKS.register("detector",
+            ()-> new DetectorBlock(BlockBehaviour.Properties.of().strength(0.5f).mapColor(MapColor.COLOR_GRAY)));
+
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM.key(), MOD_ID);
 
@@ -66,17 +72,27 @@ public class FancyDoorsMod {
             ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get(), DOUBLE_3X3_SLIDING_DOOR.get(), DOUBLE_3X3_CAUTION_SLIDING_DOOR.get()));
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
             ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get(), IRON_SINGLE_2X3_SLIDING_DOOR.get()));
+
+    public static final RegistryObject<BlockEntityType<DetectorBlockEntity>> DETECTOR_BE = BE_TYPES.register("detector",
+            ()-> registerBlockEntityType(DetectorBlockEntity::new, DETECTOR_BLOCK.get()));
+
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT.key(), MOD_ID);
 
     public static final RegistryObject<SoundEvent> WRENCH_SOUND = SOUNDS.register("wrenched", ()-> SoundEvent.createVariableRangeEvent(modRL("wrench")));
     public static final RegistryObject<SoundEvent> SLIDING_DOOR_CLOSE = SOUNDS.register("sliding_door_close", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_close")));
     public static final RegistryObject<SoundEvent> SLIDING_DOOR_OPEN = SOUNDS.register("sliding_door_open", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_open")));
+
     // Components
 
     public static final Component DOOR_LOCKED = Component.translatable("fancydoors.sliding.locked");
     public static final Component DOOR_UNLOCKED = Component.translatable("fancydoors.sliding.unlocked");
     public static final Component SLIDING_DOOR_INFO = Component.translatable("fancydoors.sliding.info").withStyle(ChatFormatting.GRAY);
+    public static final Component DETECTOR_SCREEN_TITLE = Component.translatable("fancydoors.detector.title");
+    public static final Component DETECTOR_SCREEN_BTN_INCR = Component.translatable("fancydoors.detector.narrator.increment");
+    public static final Component DETECTOR_SCREEN_BTN_DECR = Component.translatable("fancydoors.detector.narrator.decrement");
+    public static final Component DETECTOR_SCREEN_BTN_SUBMIT = Component.translatable("fancydoors.detector.screen.submit");
+
     public FancyDoorsMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -88,6 +104,7 @@ public class FancyDoorsMod {
         ITEMS.register(modBus);
         SOUNDS.register(modBus);
         BE_TYPES.register(modBus);
+        NetRegistry.init();
 
         modBus.addListener(FancyDoorsMod::onDatagen);
     }

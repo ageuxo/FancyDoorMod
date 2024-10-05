@@ -1,5 +1,10 @@
 {
   "fancydoors.sliding.info": "A large sliding door. Shift-right-click with a wrench to lock it. Locked doors can only be opened with redstone.",
   "fancydoors.sliding.locked": "\"Locked Door\"",
-  "fancydoors.sliding.unlocked": "\"Unlocked Door\""
+  "fancydoors.sliding.unlocked": "\"Unlocked Door\"",
+  "fancydoors.detector.title": "Detector",
+  "fancydoors.detector.narrator.increment": "Add one to value",
+  "fancydoors.detector.narrator.decrement": "Subtract one from value",
+  "fancydoors.detector.narrator.widget": "%s equals %s",
+  "fancydoors.detector.screen.submit": "Submit"
 }

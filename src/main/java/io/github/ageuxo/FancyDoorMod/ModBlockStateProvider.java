@@ -26,10 +26,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
 //        sizedBlockWithItem("2x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_2X3_SLIDING_DOOR);
 //        sizedBlockWithItem("2x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR);
 
-        allVariants(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR,
-                models().getExistingFile(FancyDoorsMod.modRL("block/sliding_doors/double_3x3")));
-        allVariants(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR,
-                models().getExistingFile(FancyDoorsMod.modRL("block/sliding_doors/double_3x3_caution")));
+        alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
+        alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
+    }
+
+    public void alLVariantsExistingWithItem(RegistryObject<Block> blockObj, String path) {
+        ModelFile.ExistingModelFile model = models().getExistingFile(FancyDoorsMod.modRL(path));
+        allVariants(blockObj, model);
+        simpleBlockItem(blockObj.get(), model);
     }
 
     public void allVariants(RegistryObject<Block> blockObj, ModelFile model) {
