@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "fancydoors:block/detector",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east": {
+      "model": "fancydoors:block/detector",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "fancydoors:block/detector"
+    },
+    "facing=south": {
+      "model": "fancydoors:block/detector",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "fancydoors:block/detector",
+      "x": -90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "fancydoors:block/detector",
+      "y": 270
+    }
+  }
+}

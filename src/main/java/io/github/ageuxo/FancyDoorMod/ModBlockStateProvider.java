@@ -1,8 +1,10 @@
 package io.github.ageuxo.FancyDoorMod;
 
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -28,6 +30,28 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
         alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
+
+        facingBlock(FancyDoorsMod.DETECTOR_BLOCK, FancyDoorsMod.modRL("block/detector_front"), FancyDoorsMod.modRL("block/detector_side"));
+    }
+
+    public void facingBlock(RegistryObject<Block> blockObj, ResourceLocation front, ResourceLocation sides) {
+        BlockModelBuilder model = models()
+                .cube(blockObj.getId().toString(),
+                sides, sides, front, sides, sides, sides)
+                .texture("particle", sides);
+
+        getVariantBuilder(blockObj.get()).forAllStates(state -> {
+            Direction facing = state.getValue(BlockStateProperties.FACING);
+            Direction.Axis axis = facing.getAxis();
+            boolean v = axis.isVertical();
+            int xRot = v ? facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -90 : 90 : 0;
+
+            return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .rotationY((int) (facing.toYRot() + 180) % 360)
+                    .rotationX(xRot)
+                    .build();
+        });
     }
 
     public void alLVariantsExistingWithItem(RegistryObject<Block> blockObj, String path) {
