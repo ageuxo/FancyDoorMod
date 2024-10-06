@@ -2,6 +2,7 @@ package io.github.ageuxo.FancyDoorMod.gui;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.gui.widget.IntValueWidget;
+import io.github.ageuxo.FancyDoorMod.network.CollectionDiff;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.network.packet.C2SDetectorPacket;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -17,6 +18,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector2i;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.List;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -30,6 +33,7 @@ public class DetectorScreen extends Screen {
     private Vector2i plateMin;
     private int plateWidth;
     private int plateHeight;
+    private boolean listModified;
 
     private final int initX;
     private final int minX;
@@ -40,8 +44,10 @@ public class DetectorScreen extends Screen {
     private final int initZ;
     private final int minZ;
     private final int maxZ;
+    private final List<String> initFilters;
+    private final List<String> filters;
 
-    public DetectorScreen(BlockPos pos, int initX, int minX, int maxX, int initY, int minY, int maxY, int initZ, int minZ, int maxZ) {
+    public DetectorScreen(BlockPos pos, int initX, int minX, int maxX, int initY, int minY, int maxY, int initZ, int minZ, int maxZ, List<String> filters) {
         super(FancyDoorsMod.DETECTOR_SCREEN_TITLE);
         this.pos = pos;
         this.initX = initX;
@@ -53,6 +59,8 @@ public class DetectorScreen extends Screen {
         this.initZ = initZ;
         this.minZ = minZ;
         this.maxZ = maxZ;
+        this.initFilters = filters;
+        this.filters = new ArrayList<>(filters);
     }
 
     @Override
@@ -66,8 +74,8 @@ public class DetectorScreen extends Screen {
     }
 
     private void sendNewValues() {
-        if (xWidget.value() != this.initX || yWidget.value() != this.initY || zWidget.value() != this.initZ) {
-            NetRegistry.INSTANCE.sendToServer(new C2SDetectorPacket(this.pos, xWidget.value(), yWidget.value(), zWidget.value()));
+        if (xWidget.value() != this.initX || yWidget.value() != this.initY || zWidget.value() != this.initZ || this.listModified) {
+            NetRegistry.INSTANCE.sendToServer(new C2SDetectorPacket(this.pos, xWidget.value(), yWidget.value(), zWidget.value(), new CollectionDiff<>(this.initFilters, this.filters)));
         }
     }
 

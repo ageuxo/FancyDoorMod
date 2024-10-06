@@ -9,12 +9,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public record S2CDetectorPacket(BlockPos pos,
                                 int xValue, int xMin, int xMax,
                                 int yValue, int yMin, int yMax,
-                                int zValue, int zMin, int zMax) {
+                                int zValue, int zMin, int zMax,
+                                List<String> filters) {
     public static final Codec<S2CDetectorPacket> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BlockPos.CODEC.fieldOf("pos").forGetter(S2CDetectorPacket::pos),
             Codec.INT.fieldOf("xValue").forGetter(S2CDetectorPacket::xValue),
@@ -25,7 +28,8 @@ public record S2CDetectorPacket(BlockPos pos,
             Codec.INT.fieldOf("yMax").forGetter(S2CDetectorPacket::yMax),
             Codec.INT.fieldOf("zValue").forGetter(S2CDetectorPacket::zValue),
             Codec.INT.fieldOf("zMin").forGetter(S2CDetectorPacket::zMin),
-            Codec.INT.fieldOf("zMax").forGetter(S2CDetectorPacket::zMax)
+            Codec.INT.fieldOf("zMax").forGetter(S2CDetectorPacket::zMax),
+            Codec.STRING.listOf().optionalFieldOf("filters", new ArrayList<>()).forGetter(S2CDetectorPacket::filters)
     ).apply(instance, S2CDetectorPacket::new));
 
     public static void encode(S2CDetectorPacket packet, FriendlyByteBuf buf) {

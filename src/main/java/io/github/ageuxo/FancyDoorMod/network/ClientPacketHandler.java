@@ -13,7 +13,8 @@ public class ClientPacketHandler {
                 new DetectorScreen(packet.pos(),
                         packet.xValue(), packet.xMin(), packet.xMax(),
                         packet.yValue(), packet.yMin(), packet.yMax(),
-                        packet.zValue(), packet.zMin(), packet.zMax()
+                        packet.zValue(), packet.zMin(), packet.zMax(),
+                        packet.filters()
                 )
         );
     }

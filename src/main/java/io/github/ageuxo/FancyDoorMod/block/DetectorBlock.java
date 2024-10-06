@@ -1,6 +1,7 @@
 package io.github.ageuxo.FancyDoorMod.block;
 
 import com.mojang.logging.LogUtils;
+import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.block.entity.DetectorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.network.packet.S2CDetectorPacket;
@@ -13,11 +14,14 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -39,7 +43,7 @@ public class DetectorBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(BlockStateProperties.FACING);
+        pBuilder.add(BlockStateProperties.FACING, BlockStateProperties.POWERED);
     }
 
     @Nullable
@@ -59,10 +63,31 @@ public class DetectorBlock extends BaseEntityBlock {
         return new DetectorBlockEntity(pPos, pState);
     }
 
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return pLevel.isClientSide ? null : createTickerHelper(pBlockEntityType, FancyDoorsMod.DETECTOR_BE.get(), DetectorBlockEntity::serverTick);
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isSignalSource(BlockState pState) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public int getSignal(BlockState pState, BlockGetter pLevel, BlockPos pPos, Direction pDirection) {
+        if (pState.getValue(BlockStateProperties.POWERED)) {
+            return 15;
+        }
+        return super.getSignal(pState, pLevel, pPos, pDirection);
     }
 
     @SuppressWarnings("deprecation")
@@ -78,7 +103,8 @@ public class DetectorBlock extends BaseEntityBlock {
                                         pPos,
                                         be.getXValue(), be.getXMin(), be.getXMax(),
                                         be.getYValue(), be.getYMin(), be.getYMax(),
-                                        be.getZValue(), be.getZMin(), be.getZMax()
+                                        be.getZValue(), be.getZMin(), be.getZMax(),
+                                        be.filterStrings()
                                 )
                         );
                         return InteractionResult.SUCCESS;
