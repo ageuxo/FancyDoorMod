@@ -42,7 +42,7 @@ public class DetectorBlockEntity extends BlockEntity {
 
     private AABB area;
     private List<ExtraCodecs.TagOrElementLocation> filterList = new ArrayList<>();
-    private List<String> filterStrings;
+    private List<String> filterStrings = new ArrayList<>();
 
     public DetectorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(FancyDoorsMod.DETECTOR_BE.get(), pPos, pBlockState);
@@ -145,22 +145,17 @@ public class DetectorBlockEntity extends BlockEntity {
 
     private void updateArea() {
         Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
-        BlockPos front = this.getBlockPos().relative(facing);
+        BlockPos pos = this.getBlockPos();
         BlockPos center;
         Direction.Axis axis = facing.getAxis();
         if (axis == Direction.Axis.X) {
-            center = front.relative(facing, this.xValue);
+            center = pos.relative(facing, this.xValue);
         } else if (axis == Direction.Axis.Y) {
-            center = front.relative(facing, this.yValue);
+            center = pos.relative(facing, this.yValue);
         } else {
-            center = front.relative(facing, this.zValue);
+            center = pos.relative(facing, this.zValue);
         }
-        int x = this.xValue / 2;
-        int y = this.yValue / 2;
-        int z = this.zValue / 2;
-        BlockPos min = center.offset(-x, -y, -z);
-        BlockPos max = center.offset(x, y, z);
-        this.area = new AABB(min, max);
+        this.area = AABB.ofSize(center.getCenter(), this.xValue, this.yValue, this.zValue);
     }
 
     public int getXValue() {

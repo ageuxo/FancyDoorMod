@@ -11,17 +11,14 @@ public class CollectionDiff<T> {
     public static final Codec<CollectionDiff<String>> STRING = makeCodec(Codec.STRING);
 
     private final boolean clear;
-    private List<T> add;
-    private List<T> remove;
+    private List<T> add = new ArrayList<>();
+    private List<T> remove = new ArrayList<>();
 
     public CollectionDiff(Collection<T> origin, Collection<T> destination) {
         if (destination.isEmpty()) {
             this.clear = true;
         } else {
             this.clear = false;
-
-            this.add = new ArrayList<>();
-            this.remove = new ArrayList<>();
 
             List<T> oUniques = origin.stream()
                     .filter(o -> !destination.contains(o))
@@ -46,8 +43,8 @@ public class CollectionDiff<T> {
     public static <O> Codec<CollectionDiff<O>> makeCodec(Codec<O> tCodec) {
         return RecordCodecBuilder.create(instance -> instance.group(
                 Codec.BOOL.fieldOf("clear").forGetter(CollectionDiff::clear),
-                tCodec.listOf().optionalFieldOf("add", new ArrayList<>()).forGetter(CollectionDiff::add),
-                tCodec.listOf().optionalFieldOf("remove", new ArrayList<>()).forGetter(CollectionDiff::remove)
+                tCodec.listOf().optionalFieldOf("add", List.of()).forGetter(CollectionDiff::add),
+                tCodec.listOf().optionalFieldOf("remove", List.of()).forGetter(CollectionDiff::remove)
         ).apply(instance, CollectionDiff::new));
     }
 
