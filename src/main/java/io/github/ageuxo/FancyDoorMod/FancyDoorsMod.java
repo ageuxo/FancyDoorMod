@@ -9,6 +9,7 @@ import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
+import io.github.ageuxo.FancyDoorMod.render.DetectorBERenderer;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -92,6 +93,7 @@ public class FancyDoorsMod {
     public static final Component DETECTOR_SCREEN_BTN_INCR = Component.translatable("fancydoors.detector.narrator.increment");
     public static final Component DETECTOR_SCREEN_BTN_DECR = Component.translatable("fancydoors.detector.narrator.decrement");
     public static final Component DETECTOR_SCREEN_BTN_SUBMIT = Component.translatable("fancydoors.detector.screen.submit");
+    public static final Component DETECTOR_SCREEN_RENDER_TOGGLE = Component.translatable("fancydoors.detector.screen.render");
 
     public FancyDoorsMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -139,6 +141,7 @@ public class FancyDoorsMod {
         public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event){
             event.registerBlockEntityRenderer(DOUBLE_SLIDING_DOOR_BE.get(), SlidingDoorBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
+            event.registerBlockEntityRenderer(DETECTOR_BE.get(), DetectorBERenderer::new);
         }
     }
 

@@ -23,14 +23,16 @@ public class IntValueWidget extends AbstractWidget {
     private final String label;
     private final int min;
     private final int max;
+    private final int increment;
     private int value;
 
     private final Button incrementBtn;
     private final Button decrementBtn;
     private final Vector2i midPoint;
 
-    public IntValueWidget(String label, int x, int y, int width, int height, int startValue, int minValue, int maxValue) {
+    public IntValueWidget(String label, int x, int y, int width, int height, int startValue, int minValue, int maxValue, int increment) {
         super(x, y, width, height, Component.empty());
+        this.increment = increment;
         if (minValue >= maxValue) {
             throw new IllegalArgumentException("minValue has to be less than maxValue!");
         }
@@ -68,12 +70,12 @@ public class IntValueWidget extends AbstractWidget {
     }
 
     private void increment(Button button) {
-        value++;
+        value += increment;
         boundValue();
     }
 
     private void decrement(Button button) {
-        value--;
+        value -= increment;
         boundValue();
     }
 

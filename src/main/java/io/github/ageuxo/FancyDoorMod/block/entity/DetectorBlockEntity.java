@@ -1,23 +1,31 @@
 package io.github.ageuxo.FancyDoorMod.block.entity;
 
+import com.mojang.logging.LogUtils;
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.network.CollectionDiff;
 import io.github.ageuxo.FancyDoorMod.network.packet.C2SDetectorPacket;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -28,6 +36,7 @@ import java.util.function.Predicate;
 @ParametersAreNonnullByDefault
 public class DetectorBlockEntity extends BlockEntity {
 
+    public static final Logger LOGGER = LogUtils.getLogger();
     private int xValue = 1;
     private int xMax = 5;
     private int xMin = 1;
@@ -43,6 +52,7 @@ public class DetectorBlockEntity extends BlockEntity {
     private AABB area;
     private List<ExtraCodecs.TagOrElementLocation> filterList = new ArrayList<>();
     private List<String> filterStrings = new ArrayList<>();
+    public boolean renderBox = false;
 
     public DetectorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(FancyDoorsMod.DETECTOR_BE.get(), pPos, pBlockState);
@@ -141,21 +151,50 @@ public class DetectorBlockEntity extends BlockEntity {
         if (oldX != this.xValue || oldY != this.yValue || oldZ != this.zValue){
             updateArea();
         }
+
+        if (level != null) {
+            LOGGER.debug("setBlock");
+            level.setBlock(this.getBlockPos(), this.getBlockState(), Block.UPDATE_ALL);
+        }
+
+        this.setChanged();
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("x", this.xValue);
+        tag.putInt("y", this.yValue);
+        tag.putInt("z", this.zValue);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.xValue = tag.getInt("x");
+        this.yValue = tag.getInt("y");
+        this.zValue = tag.getInt("z");
+        updateArea();
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     private void updateArea() {
         Direction facing = getBlockState().getValue(BlockStateProperties.FACING);
-        BlockPos pos = this.getBlockPos();
-        BlockPos center;
+        BlockPos.MutableBlockPos pos = this.getBlockPos().mutable().move(facing);
         Direction.Axis axis = facing.getAxis();
         if (axis == Direction.Axis.X) {
-            center = pos.relative(facing, this.xValue);
+            pos.move(facing, this.xValue / 2);
         } else if (axis == Direction.Axis.Y) {
-            center = pos.relative(facing, this.yValue);
+            pos.move(facing, this.yValue / 2);
         } else {
-            center = pos.relative(facing, this.zValue);
+            pos.move(facing, this.zValue / 2);
         }
-        this.area = AABB.ofSize(center.getCenter(), this.xValue, this.yValue, this.zValue);
+        this.area = AABB.ofSize(pos.getCenter(), this.xValue, this.yValue, this.zValue);
     }
 
     public int getXValue() {
@@ -226,5 +265,9 @@ public class DetectorBlockEntity extends BlockEntity {
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(BlockStateProperties.POWERED, false));
             }
         }
+    }
+
+    public AABB area() {
+        return area;
     }
 }

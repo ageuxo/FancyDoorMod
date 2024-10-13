@@ -6,5 +6,6 @@
   "fancydoors.detector.narrator.increment": "Add one to value",
   "fancydoors.detector.narrator.decrement": "Subtract one from value",
   "fancydoors.detector.narrator.widget": "%s equals %s",
-  "fancydoors.detector.screen.submit": "Submit"
+  "fancydoors.detector.screen.submit": "Submit",
+  "fancydoors.detector.screen.render": "Render outline"
 }
