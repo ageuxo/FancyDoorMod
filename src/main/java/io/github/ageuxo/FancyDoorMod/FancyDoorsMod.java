@@ -50,8 +50,8 @@ public class FancyDoorsMod {
     public static final RegistryObject<Block> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
             ()-> slidingDoor(DoorParts.PARTS_3X3));
 
-    public static final RegistryObject<Block> IRON_SINGLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_single_2x3_sliding_door",
-            ()-> slidingDoor(DoorParts.PARTS_2X3));
+    /*public static final RegistryObject<Block> IRON_SINGLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_single_2x3_sliding_door",
+            ()-> slidingDoor(DoorParts.PARTS_2X3));*/
     public static final RegistryObject<Block> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
             ()-> slidingDoor(DoorParts.PARTS_2X3));
 
@@ -72,7 +72,7 @@ public class FancyDoorsMod {
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_SLIDING_DOOR_BE = BE_TYPES.register("double_sliding_door",
             ()-> registerBlockEntityType(SlidingDoorBlockEntity::new, IRON_DOUBLE_3X3_SLIDING_DOOR.get(), IRON_DOUBLE_2X3_SLIDING_DOOR.get(), DOUBLE_3X3_SLIDING_DOOR.get(), DOUBLE_3X3_CAUTION_SLIDING_DOOR.get()));
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> SINGLE_SLIDING_DOOR_BE = BE_TYPES.register("single_sliding_door",
-            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get(), IRON_SINGLE_2X3_SLIDING_DOOR.get()));
+            ()-> registerBlockEntityType(SingleSlidingDoorBlockEntity::new, IRON_SINGLE_3X3_SLIDING_DOOR.get()));
 
     public static final RegistryObject<BlockEntityType<DetectorBlockEntity>> DETECTOR_BE = BE_TYPES.register("detector",
             ()-> registerBlockEntityType(DetectorBlockEntity::new, DETECTOR_BLOCK.get()));
@@ -94,6 +94,7 @@ public class FancyDoorsMod {
     public static final Component DETECTOR_SCREEN_BTN_DECR = Component.translatable("fancydoors.detector.narrator.decrement");
     public static final Component DETECTOR_SCREEN_BTN_SUBMIT = Component.translatable("fancydoors.detector.screen.submit");
     public static final Component DETECTOR_SCREEN_RENDER_TOGGLE = Component.translatable("fancydoors.detector.screen.render");
+    public static final Component CREATIVE_TAB = Component.translatable("fancydoors.creative_tab");
 
     public FancyDoorsMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -106,6 +107,7 @@ public class FancyDoorsMod {
         ITEMS.register(modBus);
         SOUNDS.register(modBus);
         BE_TYPES.register(modBus);
+        ModCreativeModeTabs.TABS.register(modBus);
         NetRegistry.init();
 
         modBus.addListener(FancyDoorsMod::onDatagen);
