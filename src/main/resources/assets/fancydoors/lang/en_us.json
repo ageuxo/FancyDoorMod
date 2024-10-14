@@ -7,5 +7,5 @@
   "fancydoors.detector.narrator.decrement": "Subtract one from value",
   "fancydoors.detector.narrator.widget": "%s equals %s",
   "fancydoors.detector.screen.submit": "Submit",
-  "fancydoors.detector.screen.render": "Render outline"
+  "fancydoors.detector.screen.render": "Toggle render outline"
 }
