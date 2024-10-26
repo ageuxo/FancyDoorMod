@@ -3,15 +3,15 @@ package io.github.ageuxo.FancyDoorMod;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
+import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorPartProperty;
 import io.github.ageuxo.FancyDoorMod.block.DetectorBlock;
 import io.github.ageuxo.FancyDoorMod.block.entity.DetectorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.entity.Sliding2WideBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
+import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart2x3;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
-import io.github.ageuxo.FancyDoorMod.data.ModBlockStateProvider;
-import io.github.ageuxo.FancyDoorMod.data.ModRecipeProvider;
-import io.github.ageuxo.FancyDoorMod.data.ModTagsProvider;
+import io.github.ageuxo.FancyDoorMod.data.*;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.render.DetectorBERenderer;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
@@ -20,6 +20,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -34,6 +35,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -46,25 +49,28 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.Set;
+
 @Mod(FancyDoorsMod.MOD_ID)
 public class FancyDoorsMod {
     public static final String MOD_ID = "fancydoors";
 
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK.key(), MOD_ID);
-    public static final RegistryObject<Block> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
             ()-> slidingDoor(DoorParts.DOUBLE_3X3));
-    public static final RegistryObject<Block> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
             ()-> slidingDoor(DoorParts.SINGLE_3X3));
 
     /*public static final RegistryObject<Block> IRON_SINGLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_single_2x3_sliding_door",
             ()-> slidingDoor(DoorParts.PARTS_2X3));*/
-    public static final RegistryObject<Block> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
+    public static final RegistryObject<SlidingDoorBlock<DoorPart2x3>> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
             ()-> slidingDoor(DoorParts.DOUBLE_2X3));
 
-    public static final RegistryObject<Block> DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("double_3x3_sliding_door",
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("double_3x3_sliding_door",
             ()-> slidingDoor(DoorParts.DOUBLE_3X3));
-    public static final RegistryObject<Block> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
             ()-> slidingDoor(DoorParts.DOUBLE_3X3));
 
     public static final RegistryObject<Block> DETECTOR_BLOCK = BLOCKS.register("detector",
@@ -149,6 +155,9 @@ public class FancyDoorsMod {
         generator.addProvider(true, new ModBlockStateProvider(output, fileHelper));
         generator.addProvider(true, new ModRecipeProvider(output));
         new ModTagsProvider(true, generator, event.getLookupProvider(), fileHelper);
+        generator.addProvider(true, new LootTableProvider(output, Set.of(), List.of(
+                new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK)
+        )));
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

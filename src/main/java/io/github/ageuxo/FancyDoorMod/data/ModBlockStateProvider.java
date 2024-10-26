@@ -35,7 +35,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         facingBlock(FancyDoorsMod.DETECTOR_BLOCK, FancyDoorsMod.modRL("block/detector_front"), FancyDoorsMod.modRL("block/detector_side"));
     }
 
-    public void facingBlock(RegistryObject<Block> blockObj, ResourceLocation front, ResourceLocation sides) {
+    public void facingBlock(RegistryObject<? extends Block> blockObj, ResourceLocation front, ResourceLocation sides) {
         BlockModelBuilder model = models()
                 .cube(blockObj.getId().toString(),
                 sides, sides, front, sides, sides, sides)
@@ -56,20 +56,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(blockObj.get(), model);
     }
 
-    public void alLVariantsExistingWithItem(RegistryObject<Block> blockObj, String path) {
+    public void alLVariantsExistingWithItem(RegistryObject<? extends Block> blockObj, String path) {
         ModelFile.ExistingModelFile model = models().getExistingFile(FancyDoorsMod.modRL(path));
         allVariants(blockObj, model);
         simpleBlockItem(blockObj.get(), model);
     }
 
-    public void allVariants(RegistryObject<Block> blockObj, ModelFile model) {
+    public void allVariants(RegistryObject<? extends Block> blockObj, ModelFile model) {
         getVariantBuilder(blockObj.get()).forAllStates((state)->
                 ConfiguredModel.builder()
                         .modelFile(model)
                         .build());
     }
 
-    public void singleSlidingDoor(String size, RegistryObject<Block> blockObj) {
+    public void singleSlidingDoor(String size, RegistryObject<? extends Block> blockObj) {
         String path = blockObj.getId().getPath();
         ResourceLocation texture = modLoc("block/sliding_door/" + path);
         BlockModelBuilder baseModel = models()
@@ -83,7 +83,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .build());
     }
 
-    public void doubleSlidingDoor(String size, RegistryObject<Block> blockObj) {
+    public void doubleSlidingDoor(String size, RegistryObject<? extends Block> blockObj) {
         String path = blockObj.getId().getPath();
         ResourceLocation texture = modLoc("block/sliding_door/" + path);
         BlockModelBuilder baseModel = models()
@@ -97,7 +97,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .build());
     }
 
-    public void sizedBlockWithItem(String size, BiConsumer<String, RegistryObject<Block>> blockModelGenerator, RegistryObject<Block> blockObj) {
+    public void sizedBlockWithItem(String size, BiConsumer<String, RegistryObject<? extends Block>> blockModelGenerator, RegistryObject<? extends Block> blockObj) {
         blockModelGenerator.accept(size, blockObj);
         simpleBlockItem(blockObj.get(), models().getExistingFile(modLoc("block/" + blockObj.getId().getPath())));
     }

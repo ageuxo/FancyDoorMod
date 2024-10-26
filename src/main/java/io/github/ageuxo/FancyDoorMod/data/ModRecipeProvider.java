@@ -68,7 +68,7 @@ public class ModRecipeProvider extends RecipeProvider {
         this.builders.forEach((builder -> builder.save(pWriter)));
     }
 
-    private @NotNull ShapedRecipeBuilder shapedDoor(RecipeCategory category, RegistryObject<Block> block) {
+    private @NotNull ShapedRecipeBuilder shapedDoor(RecipeCategory category, RegistryObject<? extends Block> block) {
         ShapedRecipeBuilder recipe = ShapedRecipeBuilder.shaped(category, block.get())
                 .unlockedBy("has_iron_door", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_DOOR));
         builders.add(recipe);

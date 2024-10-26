@@ -1,15 +1,15 @@
 package io.github.ageuxo.FancyDoorMod.data;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
+import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,6 +19,13 @@ import java.util.function.Supplier;
 
 public class ModTagsProvider {
 
+    public static final List<RegistryObject<? extends SlidingDoorBlock<? extends Enum<? extends Enum<?>>>>> DOORS = List.of(
+            FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR,
+            FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR,
+            FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR,
+            FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR,
+            FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR
+    );
     public final BlockTags blockTags;
     public final ItemTags itemTags;
 
@@ -42,15 +49,8 @@ public class ModTagsProvider {
             var pickaxeMinable = tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE);
             FancyDoorsMod.BLOCKS.getEntries().stream().map(Supplier::get).forEach(pickaxeMinable::add);
 
-            var doors = List.of(
-                    FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR,
-                    FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR,
-                    FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR,
-                    FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR,
-                    FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR
-            );
             var needsIron = tag(net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL);
-            doors.stream().map(Supplier::get).forEach(needsIron::add);
+            DOORS.stream().map(Supplier::get).forEach(needsIron::add);
 
         }
     }
