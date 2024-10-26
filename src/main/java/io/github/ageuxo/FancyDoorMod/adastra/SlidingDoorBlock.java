@@ -176,7 +176,7 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (!Block.canSupportRigidBlock(level, pos.below())) return false;
-        Direction direction = state.getValue(FACING).getClockWise();
+        Direction direction = state.getValue(FACING).getCounterClockWise();
         for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             BlockPos offset = pos.relative(direction, part.xOffset()).above(part.yOffset());
             if (!level.getBlockState(offset).isAir()) return false;
