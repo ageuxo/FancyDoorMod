@@ -28,7 +28,7 @@ public class SingleSlidingDoorBERenderer implements BlockEntityRenderer<SlidingD
     public void render(SlidingDoorBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         pPoseStack.pushPose();
 
-        float slide = Mth.lerp(pPartialTick, pBlockEntity.lastSlideTicks(), pBlockEntity.slideTicks()) / 33;
+        float slide = Mth.lerp(pPartialTick, pBlockEntity.lastSlideTicks(), pBlockEntity.slideTicks()) / 34;
         BlockState state = pBlockEntity.getBlockState();
         Direction direction = state.getValue(SlidingDoorBlock.FACING);
         BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();

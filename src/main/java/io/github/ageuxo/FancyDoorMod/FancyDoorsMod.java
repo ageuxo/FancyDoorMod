@@ -48,19 +48,19 @@ public class FancyDoorsMod {
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK.key(), MOD_ID);
     public static final RegistryObject<Block> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
-            ()-> slidingDoor(DoorParts.PARTS_3X3));
+            ()-> slidingDoor(DoorParts.DOUBLE_3X3));
     public static final RegistryObject<Block> IRON_SINGLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_single_3x3_sliding_door",
-            ()-> slidingDoor(DoorParts.PARTS_3X3));
+            ()-> slidingDoor(DoorParts.SINGLE_3X3));
 
     /*public static final RegistryObject<Block> IRON_SINGLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_single_2x3_sliding_door",
             ()-> slidingDoor(DoorParts.PARTS_2X3));*/
     public static final RegistryObject<Block> IRON_DOUBLE_2X3_SLIDING_DOOR = BLOCKS.register("iron_double_2x3_sliding_door",
-            ()-> slidingDoor(DoorParts.PARTS_2X3));
+            ()-> slidingDoor(DoorParts.DOUBLE_2X3));
 
     public static final RegistryObject<Block> DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("double_3x3_sliding_door",
-            ()-> slidingDoor(DoorParts.PARTS_3X3));
+            ()-> slidingDoor(DoorParts.DOUBLE_3X3));
     public static final RegistryObject<Block> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
-            ()-> slidingDoor(DoorParts.PARTS_3X3));
+            ()-> slidingDoor(DoorParts.DOUBLE_3X3));
 
     public static final RegistryObject<Block> DETECTOR_BLOCK = BLOCKS.register("detector",
             ()-> new DetectorBlock(BlockBehaviour.Properties.of().strength(0.5f).mapColor(MapColor.COLOR_GRAY)));
