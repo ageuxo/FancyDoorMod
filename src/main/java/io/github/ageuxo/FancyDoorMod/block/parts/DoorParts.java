@@ -1,21 +1,25 @@
 package io.github.ageuxo.FancyDoorMod.block.parts;
 
+import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
+import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorPartProperty;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-
-import java.util.Locale;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class DoorParts<E extends Enum<E> & DoorPart & StringRepresentable> {
 
-    public static final DoorParts<DoorPart2x3> PARTS_2X3 = new DoorParts<>(DoorPart2x3.BOTTOM_RIGHT);
-    public static final DoorParts<SlidingDoorPartProperty> PARTS_3X3 = new DoorParts<>(SlidingDoorPartProperty.BOTTOM);
+    public static final DoorParts<DoorPart2x3> PARTS_2X3 = new DoorParts<>(DoorPart2x3.BOTTOM_RIGHT, FancyDoorsMod.DOUBLE_2X3_SLIDING_DOOR_BE);
+    public static final DoorParts<SlidingDoorPartProperty> PARTS_3X3 = new DoorParts<>(SlidingDoorPartProperty.BOTTOM, FancyDoorsMod.DOUBLE_SLIDING_DOOR_BE);
 
     private final E mainPart;
+    private final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> beType;
     private final EnumProperty<E> property;
 
-    public DoorParts(E mainPart) {
+    public DoorParts(E mainPart, RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> beType) {
         this.mainPart = mainPart;
+        this.beType = beType;
         Class<E> partClass = (Class<E>) mainPart.getClass();
         this.property = EnumProperty.create("part", partClass);
     }
@@ -29,4 +33,7 @@ public final class DoorParts<E extends Enum<E> & DoorPart & StringRepresentable>
     }
 
 
+    public RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> beType() {
+        return beType;
+    }
 }

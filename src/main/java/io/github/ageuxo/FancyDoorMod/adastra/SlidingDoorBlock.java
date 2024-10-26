@@ -131,7 +131,7 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(doorParts.property()).isController() ? new SlidingDoorBlockEntity(pos, state) : null; // FancyDoors: remove indirection, replace PART with doorPart prop
+        return state.getValue(doorParts.property()).isController() ? this.doorParts.beType().get().create(pos, state) : null; // FancyDoors: remove indirection, replace PART with doorPart prop
     }
 
     @Override
