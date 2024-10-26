@@ -1,5 +1,6 @@
 package io.github.ageuxo.FancyDoorMod.adastra;
 
+import com.mojang.logging.LogUtils;
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
@@ -35,6 +36,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -43,6 +45,7 @@ import java.util.List;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable> extends BasicEntityBlock implements Wrenchable {
+    private static final Logger LOGGER = LogUtils.getLogger();
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
@@ -141,7 +144,7 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
         if (locked) return InteractionResult.PASS;
 
         // set all parts to the same state
-        var direction = state.getValue(FACING).getClockWise();
+        var direction = state.getValue(FACING).getCounterClockWise();
         for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             var partPos = controllerPos.relative(direction, part.xOffset()).above(part.yOffset());
             var partState = level.getBlockState(partPos);
@@ -152,9 +155,9 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        var direction = state.getValue(FACING).getClockWise();
+        var direction = state.getValue(FACING).getCounterClockWise();
         for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
-            var partPos = pos.relative(direction.getOpposite(), part.xOffset()).above(part.yOffset());
+            var partPos = pos.relative(direction, part.xOffset()).above(part.yOffset());
             level.setBlock(partPos, state.setValue(doorParts.property(), part), Block.UPDATE_CLIENTS);
         }
     }
@@ -203,7 +206,7 @@ public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable
     }
 
     private void destroy(Level level, BlockPos pos, BlockState state) {
-        var direction = state.getValue(FACING).getClockWise();
+        var direction = state.getValue(FACING).getCounterClockWise();
         var controllerPos = getController(state, pos);
         for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             var partPos = controllerPos.relative(direction, part.xOffset()).above(part.yOffset());
