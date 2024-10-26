@@ -1,5 +1,6 @@
-package io.github.ageuxo.FancyDoorMod;
+package io.github.ageuxo.FancyDoorMod.data;
 
+import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

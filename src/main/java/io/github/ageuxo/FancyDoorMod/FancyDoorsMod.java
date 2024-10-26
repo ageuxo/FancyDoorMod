@@ -9,6 +9,9 @@ import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.entity.Sliding2WideBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
+import io.github.ageuxo.FancyDoorMod.data.ModBlockStateProvider;
+import io.github.ageuxo.FancyDoorMod.data.ModRecipeProvider;
+import io.github.ageuxo.FancyDoorMod.data.ModTagsProvider;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.render.DetectorBERenderer;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
@@ -16,6 +19,7 @@ import io.github.ageuxo.FancyDoorMod.render.Sliding2WideDoorBERenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -32,6 +36,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -139,7 +144,11 @@ public class FancyDoorsMod {
 
     public static void onDatagen(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
-        generator.addProvider(true, new ModBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        PackOutput output = generator.getPackOutput();
+        ExistingFileHelper fileHelper = event.getExistingFileHelper();
+        generator.addProvider(true, new ModBlockStateProvider(output, fileHelper));
+        generator.addProvider(true, new ModRecipeProvider(output));
+        new ModTagsProvider(true, generator, event.getLookupProvider(), fileHelper);
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
