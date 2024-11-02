@@ -1,0 +1,54 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "fancydoors:block/detector",
+      "x": 90,
+      "y": 90
+    },
+    "facing=down,powered=true": {
+      "model": "fancydoors:block/detector",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,powered=false": {
+      "model": "fancydoors:block/detector",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "fancydoors:block/detector",
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "fancydoors:block/detector"
+    },
+    "facing=north,powered=true": {
+      "model": "fancydoors:block/detector"
+    },
+    "facing=south,powered=false": {
+      "model": "fancydoors:block/detector",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "fancydoors:block/detector",
+      "y": 180
+    },
+    "facing=up,powered=false": {
+      "model": "fancydoors:block/detector",
+      "x": -90,
+      "y": 90
+    },
+    "facing=up,powered=true": {
+      "model": "fancydoors:block/detector",
+      "x": -90,
+      "y": 90
+    },
+    "facing=west,powered=false": {
+      "model": "fancydoors:block/detector",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "fancydoors:block/detector",
+      "y": 270
+    }
+  }
+}

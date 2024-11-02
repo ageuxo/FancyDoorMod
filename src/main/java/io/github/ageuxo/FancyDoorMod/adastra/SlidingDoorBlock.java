@@ -1,11 +1,15 @@
 package io.github.ageuxo.FancyDoorMod.adastra;
 
+import com.mojang.logging.LogUtils;
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
+import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
+import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,13 +23,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -34,6 +36,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -41,41 +44,45 @@ import java.util.List;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
+public class SlidingDoorBlock<T extends Enum<T> & DoorPart & StringRepresentable> extends BasicEntityBlock implements Wrenchable {
+    private static final Logger LOGGER = LogUtils.getLogger();
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty LOCKED = BlockStateProperties.LOCKED;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final EnumProperty<SlidingDoorPartProperty> PART = EnumProperty.create("part", SlidingDoorPartProperty.class);
+    // FancyDoors: Remove PART constant
 
     private static final VoxelShape NORTH_SHAPE = Block.box(0, 0, 1, 16, 16, 4);
     private static final VoxelShape EAST_SHAPE = Block.box(12, 0, 0, 15, 16, 16);
     private static final VoxelShape SOUTH_SHAPE = Block.box(0, 0, 12, 16, 16, 15);
     private static final VoxelShape WEST_SHAPE = Block.box(1, 0, 0, 4, 16, 16);
 
-    public SlidingDoorBlock(BlockBehaviour.Properties properties) {
+    private final DoorParts<T> doorParts; // FancyDoors: Add doorParts field
+
+    public SlidingDoorBlock(DoorParts<T> doorParts, Properties properties) {
         super(properties.pushReaction(PushReaction.BLOCK), true);
+        this.doorParts = doorParts; // FancyDoors: Add doorParts field
         registerDefaultState(stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(OPEN, false)
                 .setValue(LOCKED, false)
                 .setValue(POWERED, false)
-                .setValue(PART, SlidingDoorPartProperty.BOTTOM));
+                .setValue(doorParts.property(), doorParts.mainPart()));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, LOCKED, POWERED, PART);
+        builder.add(FACING, OPEN, LOCKED, POWERED); // FancyDoors: Replace with doorPart prop
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(FACING)) {
-            default -> NORTH_SHAPE;
-            case EAST -> EAST_SHAPE;
-            case SOUTH -> SOUTH_SHAPE;
-            case WEST -> WEST_SHAPE;
-        };
+        Direction.Axis axis = state.getValue(FACING).getAxis();
+        if (axis == Direction.Axis.X) {
+            return DoorPart.THICK_N2S_SHAPE;
+        } else {
+            return DoorPart.THICK_E2W_SHAPE;
+        }
     }
 
     @Override
@@ -86,7 +93,7 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         var controllerState = level.getBlockState(getController(state, pos));
-        if (!controllerState.getValues().containsKey(PART)) {
+        if (!controllerState.getValues().containsKey(doorParts.property())) { // FancyDoors: Replace with doorPart prop
             return super.getCollisionShape(state, level, pos, context);
         }
         return controllerState.getValue(OPEN) || controllerState.getValue(POWERED) ?
@@ -124,7 +131,7 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(PART).isController() ? new SlidingDoorBlockEntity(pos, state) : null; // FancyDoors: remove indirection
+        return state.getValue(doorParts.property()).isController() ? this.doorParts.beType().get().create(pos, state) : null; // FancyDoors: remove indirection, replace PART with doorPart prop
     }
 
     @Override
@@ -137,8 +144,8 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
         if (locked) return InteractionResult.PASS;
 
         // set all parts to the same state
-        var direction = state.getValue(FACING).getClockWise();
-        for (var part : SlidingDoorPartProperty.values()) {
+        var direction = state.getValue(FACING).getCounterClockWise();
+        for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             var partPos = controllerPos.relative(direction, part.xOffset()).above(part.yOffset());
             var partState = level.getBlockState(partPos);
             level.setBlockAndUpdate(partPos, partState.cycle(OPEN));
@@ -148,10 +155,10 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        var direction = state.getValue(FACING).getClockWise();
-        for (var part : SlidingDoorPartProperty.values()) {
-            var partPos = pos.relative(direction.getOpposite(), part.xOffset()).above(part.yOffset());
-            level.setBlock(partPos, state.setValue(PART, part), Block.UPDATE_CLIENTS);
+        var direction = state.getValue(FACING).getCounterClockWise();
+        for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
+            var partPos = pos.relative(direction, part.xOffset()).above(part.yOffset());
+            level.setBlock(partPos, state.setValue(doorParts.property(), part), Block.UPDATE_CLIENTS);
         }
     }
 
@@ -169,8 +176,8 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (!Block.canSupportRigidBlock(level, pos.below())) return false;
-        Direction direction = state.getValue(FACING).getClockWise();
-        for (var part : SlidingDoorPartProperty.values()) {
+        Direction direction = state.getValue(FACING).getCounterClockWise();
+        for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             BlockPos offset = pos.relative(direction, part.xOffset()).above(part.yOffset());
             if (!level.getBlockState(offset).isAir()) return false;
         }
@@ -199,16 +206,16 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
     }
 
     private void destroy(Level level, BlockPos pos, BlockState state) {
-        var direction = state.getValue(FACING).getClockWise();
+        var direction = state.getValue(FACING).getCounterClockWise();
         var controllerPos = getController(state, pos);
-        for (var part : SlidingDoorPartProperty.values()) {
+        for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             var partPos = controllerPos.relative(direction, part.xOffset()).above(part.yOffset());
             level.destroyBlock(partPos, true);
         }
     }
 
     private BlockPos getController(BlockState state, BlockPos pos) {
-        var part = state.getValue(PART);
+        var part = state.getValue(doorParts.property()); // FancyDoors: Replace with doorPart prop
         var direction = state.getValue(FACING).getClockWise();
         return pos.relative(direction.getOpposite(), -part.xOffset()).below(part.yOffset());
     }
@@ -217,7 +224,7 @@ public class SlidingDoorBlock extends BasicEntityBlock implements Wrenchable {
     public void onWrench(Level level, BlockPos pos, BlockState state, Direction side, Player user, Vec3 hitPos) {
         var controllerPos = getController(state, pos);
         var direction = state.getValue(FACING).getClockWise();
-        for (var part : SlidingDoorPartProperty.values()) {
+        for (var part : doorParts.property().getPossibleValues()) { // FancyDoors: Replace with doorPart prop
             var partPos = controllerPos.relative(direction, part.xOffset()).above(part.yOffset());
             var partState = level.getBlockState(partPos);
             level.setBlockAndUpdate(partPos, partState.cycle(LOCKED));

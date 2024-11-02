@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "fancydoors:block/detector_side",
+    "east": "fancydoors:block/detector_side",
+    "north": "fancydoors:block/detector_front",
+    "particle": "fancydoors:block/detector_side",
+    "south": "fancydoors:block/detector_side",
+    "up": "fancydoors:block/detector_side",
+    "west": "fancydoors:block/detector_side"
+  }
+}
