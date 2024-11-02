@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:black_dye"
+    },
+    "D": {
+      "item": "minecraft:iron_door"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "Y": {
+      "item": "minecraft:yellow_dye"
+    }
+  },
+  "pattern": [
+    "III",
+    "DID",
+    "YBY"
+  ],
+  "result": {
+    "item": "fancydoors:double_3x3_caution_sliding_door"
+  },
+  "show_notification": true
+}

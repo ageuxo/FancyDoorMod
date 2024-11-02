@@ -8,6 +8,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class SingleSlidingDoorBlockEntity extends SlidingDoorBlockEntity {
 
     public SingleSlidingDoorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(FancyDoorsMod.SINGLE_3X3_SLIDING_DOOR_BE.get(), pPos, pBlockState);
+        super(FancyDoorsMod.SINGLE_SLIDING_DOOR_BE.get(), pPos, pBlockState);
     }
 }

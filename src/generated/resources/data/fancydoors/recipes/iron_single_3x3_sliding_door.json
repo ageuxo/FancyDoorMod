@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:iron_door"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "III",
+    "IDI",
+    "III"
+  ],
+  "result": {
+    "item": "fancydoors:iron_single_3x3_sliding_door"
+  },
+  "show_notification": true
+}

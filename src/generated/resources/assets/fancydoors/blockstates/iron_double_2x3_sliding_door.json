@@ -1,0 +1,580 @@
+{
+  "variants": {
+    "facing=east,locked=false,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=false,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=east,locked=true,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=false,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=north,locked=true,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=false,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=south,locked=true,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=false,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=false,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=bottom_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=bottom_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=bottom_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=bottom_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=middle_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=middle_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=middle_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=middle_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=top_left,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=top_left,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=top_right,powered=false": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    },
+    "facing=west,locked=true,open=true,part=top_right,powered=true": {
+      "model": "fancydoors:block/iron_double_2x3_sliding_door"
+    }
+  }
+}

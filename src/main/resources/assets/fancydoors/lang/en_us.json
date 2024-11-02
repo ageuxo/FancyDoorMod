@@ -1,5 +1,19 @@
 {
-  "fancydoors.sliding.info": "A large 3x3 door. Shift-right-click with a wrench to lock it. Locked doors can only be opened with redstone.",
+  "fancydoors.sliding.info": "A large sliding door. Shift-right-click with a wrench to lock it. Locked doors can only be opened with redstone.",
   "fancydoors.sliding.locked": "\"Locked Door\"",
-  "fancydoors.sliding.unlocked": "\"Unlocked Door\""
+  "fancydoors.sliding.unlocked": "\"Unlocked Door\"",
+  "fancydoors.detector.title": "Detector",
+  "fancydoors.detector.narrator.increment": "Add one to value",
+  "fancydoors.detector.narrator.decrement": "Subtract one from value",
+  "fancydoors.detector.narrator.widget": "%s equals %s",
+  "fancydoors.detector.screen.submit": "Submit",
+  "fancydoors.detector.screen.render": "Toggle render outline",
+  "block.fancydoors.double_3x3_sliding_door": "Double 3x3 Sliding Door",
+  "block.fancydoors.double_3x3_caution_sliding_door": "Double 3x3 Caution Sliding Door",
+  "block.fancydoors.iron_double_3x3_sliding_door": "Iron Double 3x3 Sliding Door",
+  "block.fancydoors.iron_double_2x3_sliding_door": "Iron Double 2x3 Sliding Door",
+  "block.fancydoors.iron_single_3x3_sliding_door": "Iron Single 3x3 Sliding Door",
+  "block.fancydoors.iron_single_2x3_sliding_door": "Iron Single 3x3 Sliding Door",
+  "block.fancydoors.detector": "Detector block",
+  "fancydoors.creative_tab": "Fancy Doors"
 }

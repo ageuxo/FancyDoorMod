@@ -38,7 +38,7 @@ public class SlidingDoorBlockEntityRenderer implements BlockEntityRenderer<Slidi
         poseStack.translate(0.5f, 0, 0.5f);
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
         poseStack.translate(-0.5f, 0, -0.5f);
-        poseStack.translate(0, 0, 0.87625f); // FancyDoors: Tweak alignment to fit our models
+        poseStack.translate(0, 0, 1f); // FancyDoors: Tweak alignment to fit our models
 
         minecraft.getBlockRenderer().getModelRenderer().renderModel(poseStack.last(),
                 buffer.getBuffer(Sheets.cutoutBlockSheet()),
@@ -57,9 +57,13 @@ public class SlidingDoorBlockEntityRenderer implements BlockEntityRenderer<Slidi
         poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
         poseStack.translate(-0.5f, 0, -0.5f);
 
-        poseStack.translate(slide, 0, 0.0625f);
+        // FancyDoors: Make offsets fields
+        float offset = 0.5f;
+        float zOffset = -0.5f;
+
+        poseStack.translate(slide, 0, offset);
         if (direction.getAxis() == Direction.Axis.Z) {
-            poseStack.translate(0, 0, 0.6875f);
+            poseStack.translate(0, 0, offset + zOffset);
         }
 
         modelRenderer.renderModel(poseStack.last(),
