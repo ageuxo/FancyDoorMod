@@ -74,7 +74,9 @@ public class FancyDoorsMod {
     public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
             ()-> slidingDoor(DoorParts.DOUBLE_3X3));
 
-    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> PORTCULLIS_BLOCK = BLOCKS.register("portcullis",
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> PORTCULLIS_FLAT_BLOCK = BLOCKS.register("portcullis_flat",
+            ()-> slidingDoor(DoorParts.PORTCULLIS_3X3));
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> PORTCULLIS_FULL_BLOCK = BLOCKS.register("portcullis_full",
             ()-> slidingDoor(DoorParts.PORTCULLIS_3X3));
 
     public static final RegistryObject<Block> DETECTOR_BLOCK = BLOCKS.register("detector",
@@ -95,7 +97,7 @@ public class FancyDoorsMod {
             ()-> registerBlockEntityType(Sliding2WideBlockEntity::new, IRON_DOUBLE_2X3_SLIDING_DOOR.get()));
 
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> PORTCULLIS_BE = BE_TYPES.register("portcullis",
-            ()-> registerBlockEntityType(PortcullisBlockEntity::new, PORTCULLIS_BLOCK.get()));
+            ()-> registerBlockEntityType(PortcullisBlockEntity::new, PORTCULLIS_FLAT_BLOCK.get(), PORTCULLIS_FULL_BLOCK.get()));
 
     public static final RegistryObject<BlockEntityType<DetectorBlockEntity>> DETECTOR_BE = BE_TYPES.register("detector",
             ()-> registerBlockEntityType(DetectorBlockEntity::new, DETECTOR_BLOCK.get()));

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_bars"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "T": {
+      "item": "minecraft:iron_trapdoor"
+    }
+  },
+  "pattern": [
+    "PTP",
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "item": "fancydoors:portcullis_flat"
+  },
+  "show_notification": true
+}

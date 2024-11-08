@@ -29,17 +29,25 @@ public class ModBlockStateProvider extends BlockStateProvider {
 //        sizedBlockWithItem("2x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_2X3_SLIDING_DOOR);
         sizedBlockWithItem("2x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR);
 
-        sizedBlockWithItem("3x3", (size, blockObj) -> {
-            getVariantBuilder(blockObj.get()).forAllStates((state)->
-                    ConfiguredModel.builder()
-                            .modelFile(models().getExistingFile(FancyDoorsMod.modRL("block/portcullis")))
-                            .build());
-        }, FancyDoorsMod.PORTCULLIS_BLOCK);
+        portcullis(FancyDoorsMod.PORTCULLIS_FLAT_BLOCK);
+        portcullis(FancyDoorsMod.PORTCULLIS_FULL_BLOCK);
 
         alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
         alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
 
         facingBlock(FancyDoorsMod.DETECTOR_BLOCK, FancyDoorsMod.modRL("block/detector_front"), FancyDoorsMod.modRL("block/detector_side"));
+    }
+
+    public void portcullisWithItem(RegistryObject<? extends Block> blockObj) {
+        portcullis(blockObj);
+        simpleBlockItem(blockObj.get(), models().getExistingFile(modLoc("block/" + blockObj.getId().getPath())));
+    }
+
+    private void portcullis(RegistryObject<? extends Block> blockObj) {
+        getVariantBuilder(blockObj.get()).forAllStates((state)->
+                ConfiguredModel.builder()
+                        .modelFile(models().getExistingFile(FancyDoorsMod.modRL("block/"+blockObj.getId().getPath())))
+                        .build());
     }
 
     public void facingBlock(RegistryObject<? extends Block> blockObj, ResourceLocation front, ResourceLocation sides) {

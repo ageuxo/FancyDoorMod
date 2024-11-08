@@ -32,32 +32,32 @@ public class PortcullisRenderer implements BlockEntityRenderer<SlidingDoorBlockE
         poseStack.pushPose();
 
         BlockState state = entity.getBlockState();
-        float slide = Mth.lerp(partialTick, entity.lastSlideTicks(), entity.slideTicks()) / 100.0f;
+        float baseSlide = Mth.lerp(partialTick, entity.lastSlideTicks(), entity.slideTicks()) / 115.0f;
         Direction direction = state.getValue(SlidingDoorBlock.FACING);
         BlockRenderDispatcher blockRenderer = Minecraft.getInstance().getBlockRenderer();
         BakedModel model = blockRenderer.getBlockModel(state);
 
         poseStack.translate(0.5f, 0, 0.5f);
         poseStack.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
-        poseStack.translate(-0.5f, 2, 0.5f);
+        poseStack.translate(-0.5f, 2, -0.5f);
 
-        poseStack.translate(0, slide/1.5, -0.2);
-        renderSegment(poseStack, buffer, packedLight, packedOverlay, slide, 0, state, model, blockRenderer.getModelRenderer() );
-        for (float i = 0; i < 2; i++) {
-            poseStack.translate(0,  slide-1f, 0.001f);
-            renderSegment(poseStack, buffer, packedLight, packedOverlay, slide, 0, state, model, blockRenderer.getModelRenderer() );
+        float slide = baseSlide * 3;
+        poseStack.translate(0, slide, 0.001);
+        if (slide < 1f) {
+            renderSegment(poseStack, buffer, packedLight, packedOverlay, state, model, blockRenderer.getModelRenderer());
         }
+        poseStack.translate(0, -1f, 0.001);
+        if (slide < 2f) {
+            renderSegment(poseStack, buffer, packedLight, packedOverlay, state, model, blockRenderer.getModelRenderer());
+        }
+        poseStack.translate(0, -1f, 0.001);
+        renderSegment(poseStack, buffer, packedLight, packedOverlay, state, model, blockRenderer.getModelRenderer());
 
         poseStack.popPose();
     }
 
-    public void renderSegment(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, float slide, float tilt, BlockState state, BakedModel model, ModelBlockRenderer modelRenderer) {
+    public void renderSegment(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, BlockState state, BakedModel model, ModelBlockRenderer modelRenderer) {
         poseStack.pushPose();
-        if (tilt != 0f) {
-            poseStack.translate(0, 1f, 0.15 * slide);
-            poseStack.mulPose(Axis.XP.rotationDegrees(tilt));
-            poseStack.translate(0, -1f, -0.15 * slide);
-        }
         modelRenderer.renderModel(poseStack.last(),
                 buffer.getBuffer(Sheets.cutoutBlockSheet()),
                 state,
@@ -65,19 +65,6 @@ public class PortcullisRenderer implements BlockEntityRenderer<SlidingDoorBlockE
                 1f, 1f, 1f,
                 packedLight, packedOverlay);
         poseStack.translate(1f, 0f, 0f);
-        modelRenderer.renderModel(poseStack.last(),
-                buffer.getBuffer(Sheets.cutoutBlockSheet()),
-                state,
-                model,
-                1f, 1f, 1f,
-                packedLight, packedOverlay);
-        poseStack.translate(-2, 0f, 0f);
-        modelRenderer.renderModel(poseStack.last(),
-                buffer.getBuffer(Sheets.cutoutBlockSheet()),
-                state,
-                model,
-                1f, 1f, 1f,
-                packedLight, packedOverlay);
         poseStack.popPose();
     }
 }

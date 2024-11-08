@@ -28,27 +28,27 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
 
         // 2x3
-        shapedDoor(RecipeCategory.DECORATIONS, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR)
+        shapedDoor(FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("II")
                 .pattern("DD");
 
         // 3x3
-        shapedDoor(RecipeCategory.DECORATIONS, FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR)
+        shapedDoor(FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("III")
                 .pattern("DID")
                 .pattern("III");
 
-        shapedDoor(RecipeCategory.DECORATIONS, FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR)
+        shapedDoor(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("III")
                 .pattern("DID");
 
-        shapedDoor(RecipeCategory.DECORATIONS, FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR)
+        shapedDoor(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .define('Y', Items.YELLOW_DYE)
@@ -57,20 +57,43 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("DID")
                 .pattern("YBY");
 
-        shapedDoor(RecipeCategory.DECORATIONS, FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR)
+        shapedDoor(FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("III")
                 .pattern("IDI")
                 .pattern("III");
 
+        shapedPortcullis(FancyDoorsMod.PORTCULLIS_FLAT_BLOCK)
+                .define('P', Items.PISTON)
+                .define('T', Items.IRON_TRAPDOOR)
+                .define('B', Items.IRON_BARS)
+                .pattern("PTP")
+                .pattern("BBB")
+                .pattern("BBB");
+
+        shapedPortcullis(FancyDoorsMod.PORTCULLIS_FULL_BLOCK)
+                .define('P', Items.PISTON)
+                .define('T', Items.IRON_TRAPDOOR)
+                .define('I', Items.IRON_INGOT)
+                .pattern("PTP")
+                .pattern("III")
+                .pattern("III");
+
 
         this.builders.forEach((builder -> builder.save(pWriter)));
     }
 
-    private @NotNull ShapedRecipeBuilder shapedDoor(RecipeCategory category, RegistryObject<? extends Block> block) {
-        ShapedRecipeBuilder recipe = ShapedRecipeBuilder.shaped(category, block.get())
+    private @NotNull ShapedRecipeBuilder shapedDoor(RegistryObject<? extends Block> block) {
+        ShapedRecipeBuilder recipe = ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.get())
                 .unlockedBy("has_iron_door", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_DOOR));
+        builders.add(recipe);
+        return recipe;
+    }
+
+    private @NotNull ShapedRecipeBuilder shapedPortcullis(RegistryObject<? extends Block> block) {
+        ShapedRecipeBuilder recipe = ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.get())
+                .unlockedBy("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON));
         builders.add(recipe);
         return recipe;
     }

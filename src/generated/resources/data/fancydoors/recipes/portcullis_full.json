@@ -2,19 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "D": {
-      "item": "minecraft:iron_door"
-    },
     "I": {
       "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "T": {
+      "item": "minecraft:iron_trapdoor"
     }
   },
   "pattern": [
+    "PTP",
     "III",
-    "DID"
+    "III"
   ],
   "result": {
-    "item": "fancydoors:double_3x3_sliding_door"
+    "item": "fancydoors:portcullis_full"
   },
   "show_notification": true
 }

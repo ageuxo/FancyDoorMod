@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "fancydoors:portcullis_flat",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "part": "bottom"
+              }
+            }
+          ],
+          "name": "fancydoors:portcullis_flat"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "fancydoors:blocks/portcullis_flat"
+}

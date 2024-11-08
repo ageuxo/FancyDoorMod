@@ -13,18 +13,18 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "fancydoors:portcullis",
+              "block": "fancydoors:portcullis_full",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "part": "bottom"
               }
             }
           ],
-          "name": "fancydoors:portcullis"
+          "name": "fancydoors:portcullis_full"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "fancydoors:blocks/portcullis"
+  "random_sequence": "fancydoors:blocks/portcullis_full"
 }

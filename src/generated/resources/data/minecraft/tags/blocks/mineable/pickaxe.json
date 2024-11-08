@@ -5,7 +5,8 @@
     "fancydoors:iron_double_2x3_sliding_door",
     "fancydoors:double_3x3_sliding_door",
     "fancydoors:double_3x3_caution_sliding_door",
-    "fancydoors:portcullis",
+    "fancydoors:portcullis_flat",
+    "fancydoors:portcullis_full",
     "fancydoors:detector"
   ]
 }

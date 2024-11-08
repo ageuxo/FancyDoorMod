@@ -1,0 +1,23 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "fancydoors:block/portcullis_flat",
+		"particle": "fancydoors:block/portcullis_flat"
+	},
+	"elements": [
+		{
+			"from": [-16, 0, 0],
+			"to": [32, 16, 1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-16, 0, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 12, 4], "texture": "#0"},
+				"east": {"uv": [0, 9.5, 0.25, 13.5], "texture": "#0"},
+				"south": {"uv": [0, 4.25, 12, 8.25], "texture": "#0"},
+				"west": {"uv": [0.5, 9.5, 0.75, 13.5], "texture": "#0"},
+				"up": {"uv": [12, 8.75, 0, 8.5], "texture": "#0"},
+				"down": {"uv": [12, 9, 0, 9.25], "texture": "#0"}
+			}
+		}
+	]
+}
