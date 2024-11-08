@@ -6,6 +6,7 @@ import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorPartProperty;
 import io.github.ageuxo.FancyDoorMod.block.DetectorBlock;
 import io.github.ageuxo.FancyDoorMod.block.entity.DetectorBlockEntity;
+import io.github.ageuxo.FancyDoorMod.block.entity.PortcullisBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.entity.SingleSlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.entity.Sliding2WideBlockEntity;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
@@ -14,6 +15,7 @@ import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
 import io.github.ageuxo.FancyDoorMod.data.*;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.render.DetectorBERenderer;
+import io.github.ageuxo.FancyDoorMod.render.PortcullisRenderer;
 import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
 import io.github.ageuxo.FancyDoorMod.render.Sliding2WideDoorBERenderer;
 import net.minecraft.ChatFormatting;
@@ -72,6 +74,9 @@ public class FancyDoorsMod {
     public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> DOUBLE_3X3_CAUTION_SLIDING_DOOR = BLOCKS.register("double_3x3_caution_sliding_door",
             ()-> slidingDoor(DoorParts.DOUBLE_3X3));
 
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> PORTCULLIS_BLOCK = BLOCKS.register("portcullis",
+            ()-> slidingDoor(DoorParts.PORTCULLIS_3X3));
+
     public static final RegistryObject<Block> DETECTOR_BLOCK = BLOCKS.register("detector",
             ()-> new DetectorBlock(BlockBehaviour.Properties.of().strength(0.5f).mapColor(MapColor.COLOR_GRAY)));
 
@@ -88,6 +93,9 @@ public class FancyDoorsMod {
 
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_2X3_SLIDING_DOOR_BE = BE_TYPES.register("double_2x3_sliding_door",
             ()-> registerBlockEntityType(Sliding2WideBlockEntity::new, IRON_DOUBLE_2X3_SLIDING_DOOR.get()));
+
+    public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> PORTCULLIS_BE = BE_TYPES.register("portcullis",
+            ()-> registerBlockEntityType(PortcullisBlockEntity::new, PORTCULLIS_BLOCK.get()));
 
     public static final RegistryObject<BlockEntityType<DetectorBlockEntity>> DETECTOR_BE = BE_TYPES.register("detector",
             ()-> registerBlockEntityType(DetectorBlockEntity::new, DETECTOR_BLOCK.get()));
@@ -166,6 +174,7 @@ public class FancyDoorsMod {
             event.registerBlockEntityRenderer(DOUBLE_SLIDING_DOOR_BE.get(), SlidingDoorBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(DOUBLE_2X3_SLIDING_DOOR_BE.get(), Sliding2WideDoorBERenderer::new);
             event.registerBlockEntityRenderer(SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
+            event.registerBlockEntityRenderer(PORTCULLIS_BE.get(), PortcullisRenderer::new);
             event.registerBlockEntityRenderer(DETECTOR_BE.get(), DetectorBERenderer::new);
         }
     }
