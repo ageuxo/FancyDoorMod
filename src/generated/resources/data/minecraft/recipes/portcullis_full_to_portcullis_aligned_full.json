@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "fancydoors:portcullis_aligned_full"
+    }
+  ],
+  "result": {
+    "item": "fancydoors:portcullis_full"
+  }
+}

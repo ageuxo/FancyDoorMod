@@ -2,10 +2,12 @@ package io.github.ageuxo.FancyDoorMod.data;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
@@ -72,6 +74,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("BBB")
                 .pattern("BBB");
 
+        exchange(pWriter, FancyDoorsMod.PORTCULLIS_FLAT_BLOCK,
+                FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK, RecipeCategory.BUILDING_BLOCKS, new UnlockCriteria("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON)));
+
         shapedPortcullis(FancyDoorsMod.PORTCULLIS_FULL_BLOCK)
                 .define('P', Items.PISTON)
                 .define('T', Items.IRON_TRAPDOOR)
@@ -80,21 +85,43 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("III")
                 .pattern("III");
 
+        exchange(pWriter, FancyDoorsMod.PORTCULLIS_FULL_BLOCK,
+                FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK, RecipeCategory.BUILDING_BLOCKS, new UnlockCriteria("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON)));
 
         this.builders.forEach((builder -> builder.save(pWriter)));
     }
 
-    private @NotNull ShapedRecipeBuilder shapedDoor(RegistryObject<? extends Block> block) {
+    public @NotNull ShapedRecipeBuilder shapedDoor(RegistryObject<? extends Block> block) {
         ShapedRecipeBuilder recipe = ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.get())
                 .unlockedBy("has_iron_door", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_DOOR));
         builders.add(recipe);
         return recipe;
     }
 
-    private @NotNull ShapedRecipeBuilder shapedPortcullis(RegistryObject<? extends Block> block) {
+    public @NotNull ShapedRecipeBuilder shapedPortcullis(RegistryObject<? extends Block> block) {
         ShapedRecipeBuilder recipe = ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, block.get())
                 .unlockedBy("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON));
         builders.add(recipe);
         return recipe;
     }
+
+    public @NotNull ShapelessRecipeBuilder oneToOne(RegistryObject<? extends ItemLike> first, RegistryObject<? extends ItemLike> second, RecipeCategory category) {
+        ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(category, first.get())
+                .requires(second.get());
+        builders.add(builder);
+        return builder;
+    }
+
+    public void exchange(Consumer<FinishedRecipe> writer, RegistryObject<? extends ItemLike> first, RegistryObject<? extends ItemLike> second, RecipeCategory category, UnlockCriteria unlockedBy) {
+        ShapelessRecipeBuilder b0 = ShapelessRecipeBuilder.shapeless(category, first.get())
+                .requires(second.get())
+                .unlockedBy(unlockedBy.name(), unlockedBy.criteria());
+        ShapelessRecipeBuilder b1 = ShapelessRecipeBuilder.shapeless(category, second.get())
+                .requires(first.get())
+                .unlockedBy(unlockedBy.name(), unlockedBy.criteria());
+        b0.save(writer, first.getId().getPath() + "_to_" + second.getId().getPath());
+        b1.save(writer, second.getId().getPath() + "_to_" + first.getId().getPath());
+    }
+
+    public record UnlockCriteria(String name, CriterionTriggerInstance criteria){ }
 }

@@ -26,7 +26,9 @@ public class ModTagsProvider {
             FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR,
             FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR,
             FancyDoorsMod.PORTCULLIS_FLAT_BLOCK,
-            FancyDoorsMod.PORTCULLIS_FULL_BLOCK
+            FancyDoorsMod.PORTCULLIS_FULL_BLOCK,
+            FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK,
+            FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK
     );
     public final BlockTags blockTags;
     public final ItemTags itemTags;

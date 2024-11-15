@@ -6,6 +6,8 @@
     "fancydoors:double_3x3_sliding_door",
     "fancydoors:double_3x3_caution_sliding_door",
     "fancydoors:portcullis_flat",
-    "fancydoors:portcullis_full"
+    "fancydoors:portcullis_full",
+    "fancydoors:portcullis_aligned_flat",
+    "fancydoors:portcullis_aligned_full"
   ]
 }

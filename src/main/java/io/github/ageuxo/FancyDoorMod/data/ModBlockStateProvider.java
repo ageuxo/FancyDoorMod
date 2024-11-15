@@ -4,6 +4,7 @@ import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
@@ -32,21 +33,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
         portcullis(FancyDoorsMod.PORTCULLIS_FLAT_BLOCK);
         portcullis(FancyDoorsMod.PORTCULLIS_FULL_BLOCK);
 
+        allVariants(FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK, "block/portcullis_flat");
+        parentedItem(FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK, "item/portcullis_flat");
+        allVariants(FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK, "block/portcullis_full");
+        parentedItem(FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK, "item/portcullis_full");
+
         alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
         alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
 
-        facingBlock(FancyDoorsMod.DETECTOR_BLOCK, FancyDoorsMod.modRL("block/detector_front"), FancyDoorsMod.modRL("block/detector_side"));
+        facingBlock(FancyDoorsMod.DETECTOR_BLOCK, modLoc("block/detector_front"), modLoc("block/detector_side"));
     }
 
-    public void portcullisWithItem(RegistryObject<? extends Block> blockObj) {
-        portcullis(blockObj);
-        simpleBlockItem(blockObj.get(), models().getExistingFile(modLoc("block/" + blockObj.getId().getPath())));
-    }
-
-    private void portcullis(RegistryObject<? extends Block> blockObj) {
+    public void portcullis(RegistryObject<? extends Block> blockObj) {
         getVariantBuilder(blockObj.get()).forAllStates((state)->
                 ConfiguredModel.builder()
-                        .modelFile(models().getExistingFile(FancyDoorsMod.modRL("block/"+blockObj.getId().getPath())))
+                        .modelFile(models().getExistingFile(modLoc("block/"+blockObj.getId().getPath())))
                         .build());
     }
 
@@ -77,11 +78,19 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(blockObj.get(), model);
     }
 
+    public void allVariants(RegistryObject<? extends Block> blockObj, String modelPath) {
+        allVariants(blockObj, models().getExistingFile(modLoc(modelPath)));
+    }
+
     public void allVariants(RegistryObject<? extends Block> blockObj, ModelFile model) {
         getVariantBuilder(blockObj.get()).forAllStates((state)->
                 ConfiguredModel.builder()
                         .modelFile(model)
                         .build());
+    }
+
+    public void parentedItem(RegistryObject<? extends ItemLike> blockObj, String path) {
+        itemModels().withExistingParent(blockObj.getId().getPath(), modLoc(path));
     }
 
     public void singleSlidingDoor(String size, RegistryObject<? extends Block> blockObj) {

@@ -15,7 +15,9 @@
   "block.fancydoors.iron_single_3x3_sliding_door": "Iron Single 3x3 Sliding Door",
   "block.fancydoors.iron_single_2x3_sliding_door": "Iron Single 2x3 Sliding Door",
   "block.fancydoors.portcullis_flat": "Portcullis Bars",
+  "block.fancydoors.portcullis_aligned_flat": "Portcullis Bars Aligned",
   "block.fancydoors.portcullis_full": "Portcullis",
+  "block.fancydoors.portcullis_aligned_full": "Portcullis Aligned",
   "block.fancydoors.detector": "Detector block",
   "fancydoors.creative_tab": "Fancy Doors"
 }

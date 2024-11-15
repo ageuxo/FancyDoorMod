@@ -42,7 +42,8 @@ public class PortcullisRenderer implements BlockEntityRenderer<SlidingDoorBlockE
         poseStack.translate(-0.5f, 2, -0.5f);
 
         float slide = baseSlide * 3;
-        poseStack.translate(0, slide, 0.001);
+        float offset = entity.aligned ? 0 : 0.5f;
+        poseStack.translate(0, slide, 0.001 + offset);
         if (slide < 1f) {
             renderSegment(poseStack, buffer, packedLight, packedOverlay, state, model, blockRenderer.getModelRenderer());
         }

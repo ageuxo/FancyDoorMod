@@ -1,6 +1,7 @@
 package io.github.ageuxo.FancyDoorMod.adastra;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
+import io.github.ageuxo.FancyDoorMod.block.AlignedSlidingDoorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -15,6 +16,7 @@ public class SlidingDoorBlockEntity extends BlockEntity implements TickableBlock
 
     private int slideTicks;
     private int lastSlideTicks;
+    public boolean aligned = false; // FancyDoors: add field
 
     public SlidingDoorBlockEntity(BlockPos pos, BlockState state) {
         this(FancyDoorsMod.DOUBLE_SLIDING_DOOR_BE.get(), pos, state); // FancyDoors: Change location of BE Type
@@ -28,6 +30,13 @@ public class SlidingDoorBlockEntity extends BlockEntity implements TickableBlock
     public void load(CompoundTag tag) {
         super.load(tag);
         slideTicks = tag.getInt("SlideTicks");
+    }
+
+    @Override
+    public void onLoad() { // FancyDoors: set aligned field
+        if (this.getBlockState().getBlock() instanceof AlignedSlidingDoorBlock<?>) {
+            this.aligned = true;
+        }
     }
 
     @Override

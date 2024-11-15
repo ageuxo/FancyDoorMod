@@ -11,5 +11,4 @@ public class PortcullisBlockEntity extends SlidingDoorBlockEntity {
         super(FancyDoorsMod.PORTCULLIS_BE.get(), pPos, pBlockState);
     }
 
-
 }

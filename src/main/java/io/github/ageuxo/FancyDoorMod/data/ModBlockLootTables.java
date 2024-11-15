@@ -32,6 +32,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         doorPartDrops(DOUBLE_3X3_CAUTION_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
         doorPartDrops(PORTCULLIS_FLAT_BLOCK, DoorParts.DOUBLE_3X3);
         doorPartDrops(PORTCULLIS_FULL_BLOCK, DoorParts.DOUBLE_3X3);
+        doorPartDrops(PORTCULLIS_ALIGNED_FLAT_BLOCK, DoorParts.DOUBLE_3X3);
+        doorPartDrops(PORTCULLIS_ALIGNED_FULL_BLOCK, DoorParts.DOUBLE_3X3);
     }
 
     protected <T extends Enum<T> & DoorPart & StringRepresentable> void doorPartDrops(RegistryObject<SlidingDoorBlock<T>> blockObj, DoorParts<T> doorParts) {
