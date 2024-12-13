@@ -1,13 +1,11 @@
 package io.github.ageuxo.FancyDoorMod.block.entity;
 
 import com.mojang.logging.LogUtils;
-import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.network.CollectionDiff;
 import io.github.ageuxo.FancyDoorMod.network.packet.C2SDetectorPacket;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.Packet;
@@ -55,7 +53,7 @@ public class DetectorBlockEntity extends BlockEntity {
     public boolean renderBox = false;
 
     public DetectorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(FancyDoorsMod.DETECTOR_BE.get(), pPos, pBlockState);
+        super(ModBEs.DETECTOR_BE.get(), pPos, pBlockState);
     }
 
     @Override

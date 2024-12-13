@@ -1,6 +1,7 @@
 package io.github.ageuxo.FancyDoorMod.data;
 
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
+import io.github.ageuxo.FancyDoorMod.block.ModBlocks;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorPart;
 import io.github.ageuxo.FancyDoorMod.block.parts.DoorParts;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -13,8 +14,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-import static io.github.ageuxo.FancyDoorMod.FancyDoorsMod.*;
-
 public class ModBlockLootTables extends BlockLootSubProvider {
 
     public ModBlockLootTables() {
@@ -23,17 +22,17 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(DETECTOR_BLOCK.get());
+        dropSelf(ModBlocks.DETECTOR_BLOCK.get());
 
-        doorPartDrops(IRON_DOUBLE_2X3_SLIDING_DOOR, DoorParts.DOUBLE_2X3);
-        doorPartDrops(IRON_DOUBLE_3X3_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
-        doorPartDrops(IRON_SINGLE_3X3_SLIDING_DOOR, DoorParts.SINGLE_3X3);
-        doorPartDrops(DOUBLE_3X3_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
-        doorPartDrops(DOUBLE_3X3_CAUTION_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
-        doorPartDrops(PORTCULLIS_FLAT_BLOCK, DoorParts.DOUBLE_3X3);
-        doorPartDrops(PORTCULLIS_FULL_BLOCK, DoorParts.DOUBLE_3X3);
-        doorPartDrops(PORTCULLIS_ALIGNED_FLAT_BLOCK, DoorParts.DOUBLE_3X3);
-        doorPartDrops(PORTCULLIS_ALIGNED_FULL_BLOCK, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.IRON_DOUBLE_2X3_SLIDING_DOOR, DoorParts.DOUBLE_2X3);
+        doorPartDrops(ModBlocks.IRON_DOUBLE_3X3_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.IRON_SINGLE_3X3_SLIDING_DOOR, DoorParts.SINGLE_3X3);
+        doorPartDrops(ModBlocks.DOUBLE_3X3_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.PORTCULLIS_FLAT_BLOCK, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.PORTCULLIS_FULL_BLOCK, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.PORTCULLIS_ALIGNED_FLAT_BLOCK, DoorParts.DOUBLE_3X3);
+        doorPartDrops(ModBlocks.PORTCULLIS_ALIGNED_FULL_BLOCK, DoorParts.DOUBLE_3X3);
     }
 
     protected <T extends Enum<T> & DoorPart & StringRepresentable> void doorPartDrops(RegistryObject<SlidingDoorBlock<T>> blockObj, DoorParts<T> doorParts) {
@@ -43,6 +42,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
-        return BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+        return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
 }

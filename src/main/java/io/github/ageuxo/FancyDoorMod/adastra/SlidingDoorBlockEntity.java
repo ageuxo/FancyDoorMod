@@ -2,6 +2,7 @@ package io.github.ageuxo.FancyDoorMod.adastra;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.block.AlignedSlidingDoorBlock;
+import io.github.ageuxo.FancyDoorMod.block.entity.ModBEs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -19,7 +20,7 @@ public class SlidingDoorBlockEntity extends BlockEntity implements TickableBlock
     public boolean aligned = false; // FancyDoors: add field
 
     public SlidingDoorBlockEntity(BlockPos pos, BlockState state) {
-        this(FancyDoorsMod.DOUBLE_SLIDING_DOOR_BE.get(), pos, state); // FancyDoors: Change location of BE Type
+        this(ModBEs.DOUBLE_SLIDING_DOOR_BE.get(), pos, state); // FancyDoors: Change location of BE Type
     }
 
     public SlidingDoorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {

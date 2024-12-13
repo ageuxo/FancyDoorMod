@@ -1,6 +1,7 @@
 package io.github.ageuxo.FancyDoorMod.data;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
+import io.github.ageuxo.FancyDoorMod.block.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -24,24 +25,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        sizedBlockWithItem("3x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR);
-        sizedBlockWithItem("3x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR);
+        sizedBlockWithItem("3x3", this::singleSlidingDoor, ModBlocks.IRON_SINGLE_3X3_SLIDING_DOOR);
+        sizedBlockWithItem("3x3", this::doubleSlidingDoor, ModBlocks.IRON_DOUBLE_3X3_SLIDING_DOOR);
 
 //        sizedBlockWithItem("2x3", this::singleSlidingDoor, FancyDoorsMod.IRON_SINGLE_2X3_SLIDING_DOOR);
-        sizedBlockWithItem("2x3", this::doubleSlidingDoor, FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR);
+        sizedBlockWithItem("2x3", this::doubleSlidingDoor, ModBlocks.IRON_DOUBLE_2X3_SLIDING_DOOR);
 
-        portcullis(FancyDoorsMod.PORTCULLIS_FLAT_BLOCK);
-        portcullis(FancyDoorsMod.PORTCULLIS_FULL_BLOCK);
+        portcullis(ModBlocks.PORTCULLIS_FLAT_BLOCK);
+        portcullis(ModBlocks.PORTCULLIS_FULL_BLOCK);
 
-        allVariants(FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK, "block/portcullis_flat");
-        parentedItem(FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK, "item/portcullis_flat");
-        allVariants(FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK, "block/portcullis_full");
-        parentedItem(FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK, "item/portcullis_full");
+        allVariants(ModBlocks.PORTCULLIS_ALIGNED_FLAT_BLOCK, "block/portcullis_flat");
+        parentedItem(ModBlocks.PORTCULLIS_ALIGNED_FLAT_BLOCK, "item/portcullis_flat");
+        allVariants(ModBlocks.PORTCULLIS_ALIGNED_FULL_BLOCK, "block/portcullis_full");
+        parentedItem(ModBlocks.PORTCULLIS_ALIGNED_FULL_BLOCK, "item/portcullis_full");
 
-        alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
-        alLVariantsExistingWithItem(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
+        alLVariantsExistingWithItem(ModBlocks.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
+        alLVariantsExistingWithItem(ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
 
-        facingBlock(FancyDoorsMod.DETECTOR_BLOCK, modLoc("block/detector_front"), modLoc("block/detector_side"));
+        facingBlock(ModBlocks.DETECTOR_BLOCK, modLoc("block/detector_front"), modLoc("block/detector_side"));
     }
 
     public void portcullis(RegistryObject<? extends Block> blockObj) {

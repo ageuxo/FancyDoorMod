@@ -1,13 +1,14 @@
 {
-  "fancydoors.sliding.info": "A large sliding door. Shift-right-click with a wrench to lock it. Locked doors can only be opened with redstone.",
-  "fancydoors.sliding.locked": "\"Locked Door\"",
-  "fancydoors.sliding.unlocked": "\"Unlocked Door\"",
-  "fancydoors.detector.title": "Detector",
-  "fancydoors.detector.narrator.increment": "Add one to value",
-  "fancydoors.detector.narrator.decrement": "Subtract one from value",
-  "fancydoors.detector.narrator.widget": "%s equals %s",
-  "fancydoors.detector.screen.submit": "Submit",
-  "fancydoors.detector.screen.render": "Toggle render outline",
+  "info.fancydoors.door.usage": "Shift-right-click with a wrench to lock it. Locked doors can only be opened with redstone.",
+  "info.fancydoors.detector.usage": "Detects entities in a configurable area in front of it, and outputs a redstone signal.\nRight-click with empty hand to configure.",
+  "info.fancydoors.door.locked": "\"Locked Door\"",
+  "info.fancydoors.door.unlocked": "\"Unlocked Door\"",
+  "gui.fancydoors.detector.title": "Detector",
+  "gui.fancydoors.detector.narrator.increment": "Add one to value",
+  "gui.fancydoors.detector.narrator.decrement": "Subtract one from value",
+  "gui.fancydoors.detector.narrator.widget": "%s equals %s",
+  "gui.fancydoors.detector.screen.submit": "Submit",
+  "gui.fancydoors.detector.screen.render": "Toggle render outline",
   "block.fancydoors.double_3x3_sliding_door": "Double 3x3 Sliding Door",
   "block.fancydoors.double_3x3_caution_sliding_door": "Double 3x3 Caution Sliding Door",
   "block.fancydoors.iron_double_3x3_sliding_door": "Iron Double 3x3 Sliding Door",
@@ -19,5 +20,5 @@
   "block.fancydoors.portcullis_full": "Portcullis",
   "block.fancydoors.portcullis_aligned_full": "Portcullis Aligned",
   "block.fancydoors.detector": "Detector block",
-  "fancydoors.creative_tab": "Fancy Doors"
+  "itemGroup.fancydoors.main": "Fancy Doors"
 }

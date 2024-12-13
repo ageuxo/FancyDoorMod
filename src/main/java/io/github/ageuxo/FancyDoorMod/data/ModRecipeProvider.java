@@ -1,6 +1,6 @@
 package io.github.ageuxo.FancyDoorMod.data;
 
-import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
+import io.github.ageuxo.FancyDoorMod.block.ModBlocks;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
@@ -30,27 +30,27 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
 
         // 2x3
-        shapedDoor(FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR)
+        shapedDoor(ModBlocks.IRON_DOUBLE_2X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("II")
                 .pattern("DD");
 
         // 3x3
-        shapedDoor(FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR)
+        shapedDoor(ModBlocks.IRON_DOUBLE_3X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("III")
                 .pattern("DID")
                 .pattern("III");
 
-        shapedDoor(FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR)
+        shapedDoor(ModBlocks.DOUBLE_3X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("III")
                 .pattern("DID");
 
-        shapedDoor(FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR)
+        shapedDoor(ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .define('Y', Items.YELLOW_DYE)
@@ -59,14 +59,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("DID")
                 .pattern("YBY");
 
-        shapedDoor(FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR)
+        shapedDoor(ModBlocks.IRON_SINGLE_3X3_SLIDING_DOOR)
                 .define('D', Items.IRON_DOOR)
                 .define('I', Items.IRON_INGOT)
                 .pattern("III")
                 .pattern("IDI")
                 .pattern("III");
 
-        shapedPortcullis(FancyDoorsMod.PORTCULLIS_FLAT_BLOCK)
+        shapedPortcullis(ModBlocks.PORTCULLIS_FLAT_BLOCK)
                 .define('P', Items.PISTON)
                 .define('T', Items.IRON_TRAPDOOR)
                 .define('B', Items.IRON_BARS)
@@ -74,10 +74,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("BBB")
                 .pattern("BBB");
 
-        exchange(pWriter, FancyDoorsMod.PORTCULLIS_FLAT_BLOCK,
-                FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK, RecipeCategory.BUILDING_BLOCKS, new UnlockCriteria("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON)));
+        exchange(pWriter, ModBlocks.PORTCULLIS_FLAT_BLOCK,
+                ModBlocks.PORTCULLIS_ALIGNED_FLAT_BLOCK, RecipeCategory.BUILDING_BLOCKS, new UnlockCriteria("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON)));
 
-        shapedPortcullis(FancyDoorsMod.PORTCULLIS_FULL_BLOCK)
+        shapedPortcullis(ModBlocks.PORTCULLIS_FULL_BLOCK)
                 .define('P', Items.PISTON)
                 .define('T', Items.IRON_TRAPDOOR)
                 .define('I', Items.IRON_INGOT)
@@ -85,8 +85,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("III")
                 .pattern("III");
 
-        exchange(pWriter, FancyDoorsMod.PORTCULLIS_FULL_BLOCK,
-                FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK, RecipeCategory.BUILDING_BLOCKS, new UnlockCriteria("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON)));
+        exchange(pWriter, ModBlocks.PORTCULLIS_FULL_BLOCK,
+                ModBlocks.PORTCULLIS_ALIGNED_FULL_BLOCK, RecipeCategory.BUILDING_BLOCKS, new UnlockCriteria("has_piston", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PISTON)));
 
         this.builders.forEach((builder -> builder.save(pWriter)));
     }

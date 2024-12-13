@@ -94,7 +94,7 @@ public class IntValueWidget extends AbstractWidget {
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput pNarrationElementOutput) {
-        pNarrationElementOutput.add(NarratedElementType.HINT, Component.translatable("fancydoors.detector.narrator.widget", this.label, this.value));
+        pNarrationElementOutput.add(NarratedElementType.HINT, Component.translatable("gui.fancydoors.detector.narrator.widget", this.label, this.value));
     }
 
     private class Increment extends Button {

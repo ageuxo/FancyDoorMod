@@ -2,6 +2,7 @@ package io.github.ageuxo.FancyDoorMod.data;
 
 import io.github.ageuxo.FancyDoorMod.FancyDoorsMod;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
+import io.github.ageuxo.FancyDoorMod.block.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -20,15 +21,15 @@ import java.util.function.Supplier;
 public class ModTagsProvider {
 
     public static final List<RegistryObject<? extends SlidingDoorBlock<? extends Enum<? extends Enum<?>>>>> DOORS = List.of(
-            FancyDoorsMod.IRON_DOUBLE_2X3_SLIDING_DOOR,
-            FancyDoorsMod.IRON_DOUBLE_3X3_SLIDING_DOOR,
-            FancyDoorsMod.IRON_SINGLE_3X3_SLIDING_DOOR,
-            FancyDoorsMod.DOUBLE_3X3_SLIDING_DOOR,
-            FancyDoorsMod.DOUBLE_3X3_CAUTION_SLIDING_DOOR,
-            FancyDoorsMod.PORTCULLIS_FLAT_BLOCK,
-            FancyDoorsMod.PORTCULLIS_FULL_BLOCK,
-            FancyDoorsMod.PORTCULLIS_ALIGNED_FLAT_BLOCK,
-            FancyDoorsMod.PORTCULLIS_ALIGNED_FULL_BLOCK
+            ModBlocks.IRON_DOUBLE_2X3_SLIDING_DOOR,
+            ModBlocks.IRON_DOUBLE_3X3_SLIDING_DOOR,
+            ModBlocks.IRON_SINGLE_3X3_SLIDING_DOOR,
+            ModBlocks.DOUBLE_3X3_SLIDING_DOOR,
+            ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR,
+            ModBlocks.PORTCULLIS_FLAT_BLOCK,
+            ModBlocks.PORTCULLIS_FULL_BLOCK,
+            ModBlocks.PORTCULLIS_ALIGNED_FLAT_BLOCK,
+            ModBlocks.PORTCULLIS_ALIGNED_FULL_BLOCK
     );
     public final BlockTags blockTags;
     public final ItemTags itemTags;
@@ -51,7 +52,7 @@ public class ModTagsProvider {
         @Override
         protected void addTags(HolderLookup.@NotNull Provider pProvider) {
             var pickaxeMinable = tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE);
-            FancyDoorsMod.BLOCKS.getEntries().stream().map(Supplier::get).forEach(pickaxeMinable::add);
+            ModBlocks.BLOCKS.getEntries().stream().map(Supplier::get).forEach(pickaxeMinable::add);
 
             var needsIron = tag(net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL);
             DOORS.stream().map(Supplier::get).forEach(needsIron::add);
