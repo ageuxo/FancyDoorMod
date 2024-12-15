@@ -44,7 +44,7 @@ public class FancyDoorsMod {
     @SuppressWarnings("deprecation")
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT.key(), MOD_ID);
 
-    public static final RegistryObject<SoundEvent> WRENCH_SOUND = SOUNDS.register("wrenched", ()-> SoundEvent.createVariableRangeEvent(modRL("wrench")));
+    public static final RegistryObject<SoundEvent> WRENCH_SOUND = SOUNDS.register("wrench", ()-> SoundEvent.createVariableRangeEvent(modRL("wrench")));
     public static final RegistryObject<SoundEvent> SLIDING_DOOR_CLOSE = SOUNDS.register("sliding_door_close", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_close")));
     public static final RegistryObject<SoundEvent> SLIDING_DOOR_OPEN = SOUNDS.register("sliding_door_open", ()-> SoundEvent.createVariableRangeEvent(modRL("sliding_door_open")));
 
@@ -94,6 +94,7 @@ public class FancyDoorsMod {
         generator.addProvider(true, new LootTableProvider(output, Set.of(), List.of(
                 new LootTableProvider.SubProviderEntry(ModBlockLootTables::new, LootContextParamSets.BLOCK)
         )));
+        generator.addProvider(true, new SoundProvider(output, fileHelper));
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

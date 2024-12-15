@@ -1,0 +1,14 @@
+{
+  "sliding_door_open": {
+    "sounds": [
+      "fancydoors:sliding_door_open"
+    ],
+    "subtitle": "subtitle.fancydoors.door.sliding.open"
+  },
+  "wrench": {
+    "sounds": [
+      "fancydoors:wrench"
+    ],
+    "subtitle": "subtitle.fancydoors.wrenched"
+  }
+}

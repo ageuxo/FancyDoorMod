@@ -20,5 +20,7 @@
   "block.fancydoors.portcullis_full": "Portcullis",
   "block.fancydoors.portcullis_aligned_full": "Portcullis Aligned",
   "block.fancydoors.detector": "Detector block",
-  "itemGroup.fancydoors.main": "Fancy Doors"
+  "itemGroup.fancydoors.main": "Fancy Doors",
+  "subtitle.fancydoors.wrenched": "Wrenched",
+  "subtitle.fancydoors.door.sliding.open": "Sliding Door Opens"
 }
