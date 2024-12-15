@@ -6,7 +6,7 @@
       "y": 90
     },
     "facing=down,powered=true": {
-      "model": "fancydoors:block/detector",
+      "model": "fancydoors:block/detector_powered",
       "x": 90,
       "y": 90
     },
@@ -15,21 +15,21 @@
       "y": 90
     },
     "facing=east,powered=true": {
-      "model": "fancydoors:block/detector",
+      "model": "fancydoors:block/detector_powered",
       "y": 90
     },
     "facing=north,powered=false": {
       "model": "fancydoors:block/detector"
     },
     "facing=north,powered=true": {
-      "model": "fancydoors:block/detector"
+      "model": "fancydoors:block/detector_powered"
     },
     "facing=south,powered=false": {
       "model": "fancydoors:block/detector",
       "y": 180
     },
     "facing=south,powered=true": {
-      "model": "fancydoors:block/detector",
+      "model": "fancydoors:block/detector_powered",
       "y": 180
     },
     "facing=up,powered=false": {
@@ -38,7 +38,7 @@
       "y": 90
     },
     "facing=up,powered=true": {
-      "model": "fancydoors:block/detector",
+      "model": "fancydoors:block/detector_powered",
       "x": -90,
       "y": 90
     },
@@ -47,7 +47,7 @@
       "y": 270
     },
     "facing=west,powered=true": {
-      "model": "fancydoors:block/detector",
+      "model": "fancydoors:block/detector_powered",
       "y": 270
     }
   }

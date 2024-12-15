@@ -42,7 +42,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         alLVariantsExistingWithItem(ModBlocks.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
         alLVariantsExistingWithItem(ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
 
-        facingBlock(ModBlocks.DETECTOR_BLOCK, modLoc("block/detector_front"), modLoc("block/detector_side"));
+        facingBlockPowered(ModBlocks.DETECTOR_BLOCK, modLoc("block/detector_front"), modLoc("block/detector_front_powered"), modLoc("block/detector_side"));
     }
 
     public void portcullis(RegistryObject<? extends Block> blockObj) {
@@ -71,6 +71,33 @@ public class ModBlockStateProvider extends BlockStateProvider {
                     .build();
         });
         simpleBlockItem(blockObj.get(), model);
+    }
+
+    public void facingBlockPowered(RegistryObject<? extends Block> blockObj, ResourceLocation frontOff, ResourceLocation frontOn, ResourceLocation sides) {
+        BlockModelBuilder modelOff = models()
+                .cube(blockObj.getId().toString(),
+                        sides, sides, frontOff, sides, sides, sides)
+                .texture("particle", sides);
+
+        BlockModelBuilder modelOn = models()
+                .cube(blockObj.getId().toString() + "_powered",
+                        sides, sides, frontOn, sides, sides, sides)
+                .texture("particle", sides);
+
+        getVariantBuilder(blockObj.get()).forAllStates(state -> {
+            Direction facing = state.getValue(BlockStateProperties.FACING);
+            Direction.Axis axis = facing.getAxis();
+            boolean powered = state.getValue(BlockStateProperties.POWERED);
+            boolean v = axis.isVertical();
+            int xRot = v ? facing.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -90 : 90 : 0;
+
+            return ConfiguredModel.builder()
+                    .modelFile(powered ? modelOn : modelOff)
+                    .rotationY((int) (facing.toYRot() + 180) % 360)
+                    .rotationX(xRot)
+                    .build();
+        });
+        simpleBlockItem(blockObj.get(), modelOff);
     }
 
     public void alLVariantsExistingWithItem(RegistryObject<? extends Block> blockObj, String path) {
