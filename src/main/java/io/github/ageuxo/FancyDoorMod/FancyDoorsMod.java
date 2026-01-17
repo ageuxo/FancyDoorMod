@@ -4,6 +4,7 @@ import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntityRenderer;
 import io.github.ageuxo.FancyDoorMod.block.ModBlocks;
 import io.github.ageuxo.FancyDoorMod.block.entity.*;
 import io.github.ageuxo.FancyDoorMod.data.*;
+import io.github.ageuxo.FancyDoorMod.model.GroupGeometryLoader;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
 import io.github.ageuxo.FancyDoorMod.render.DetectorBERenderer;
 import io.github.ageuxo.FancyDoorMod.render.PortcullisRenderer;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -106,6 +108,10 @@ public class FancyDoorsMod {
             event.registerBlockEntityRenderer(ModBEs.SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
             event.registerBlockEntityRenderer(ModBEs.PORTCULLIS_BE.get(), PortcullisRenderer::new);
             event.registerBlockEntityRenderer(ModBEs.DETECTOR_BE.get(), DetectorBERenderer::new);
+        }
+        @SubscribeEvent
+        public static void onRegisterModelLoaders(ModelEvent.RegisterGeometryLoaders event) {
+            event.register(GroupGeometryLoader.ID.getPath(), GroupGeometryLoader.INSTANCE);
         }
     }
 
