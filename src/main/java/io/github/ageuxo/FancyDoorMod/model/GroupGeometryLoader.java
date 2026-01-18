@@ -20,7 +20,7 @@ import java.util.Map;
 public class GroupGeometryLoader implements IGeometryLoader<GroupGeometry> {
     public static final GroupGeometryLoader INSTANCE = new GroupGeometryLoader();
     public static final ResourceLocation ID = FancyDoorsMod.modRL("group");
-    public static final UnboundedMapCodec<Integer, Transform> FRAME_TRANSFORM_CODEC = Codec.unboundedMap(Codec.INT, Transform.CODEC);
+    public static final UnboundedMapCodec<Integer, Transform> FRAME_TRANSFORM_CODEC = Codec.unboundedMap(Codec.STRING.xmap(Integer::parseInt, String::valueOf), Transform.CODEC);
     public static final Logger LOGGER = LogUtils.getLogger();
 
     private GroupGeometryLoader() { }

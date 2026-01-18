@@ -17,10 +17,10 @@ public class KeyframeAnimator {
         var fromEntry = frames.floorEntry(frame);
         var toEntry = frames.ceilingEntry(frame);
 
-        float progress = inverseLerpClamped(fromEntry.getKey(), toEntry.getKey(), frame);
+        float progress = inverseLerpClamped(fromEntry.getKey(), toEntry != null ? toEntry.getKey() : keyframes.lastFrame(), frame);
 
         Transform from = fromEntry.getValue();
-        Transform to = toEntry.getValue();
+        Transform to = toEntry != null ? toEntry.getValue() : fromEntry.getValue();
 
         from.translation().lerp(to.translation(), progress, this.translation);
         from.rotation().nlerp(to.rotation(), progress, this.rotation);
