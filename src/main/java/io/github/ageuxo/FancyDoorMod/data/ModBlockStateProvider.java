@@ -41,6 +41,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         alLVariantsExistingWithItem(ModBlocks.DOUBLE_3X3_SLIDING_DOOR, "block/sliding_doors/double_3x3");
         alLVariantsExistingWithItem(ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR, "block/sliding_doors/double_3x3_caution");
+        alLVariantsExistingWithItem(ModBlocks.MULTIPART_DOOR, "block/multipart_door");
 
         facingBlockPowered(ModBlocks.DETECTOR_BLOCK, modLoc("block/detector_front"), modLoc("block/detector_front_powered"), modLoc("block/detector_side"));
     }

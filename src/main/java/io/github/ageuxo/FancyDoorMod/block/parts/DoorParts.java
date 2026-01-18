@@ -14,6 +14,7 @@ public final class DoorParts<E extends Enum<E> & DoorPart & StringRepresentable>
     public static final DoorParts<SlidingDoorPartProperty> DOUBLE_3X3 = new DoorParts<>(SlidingDoorPartProperty.BOTTOM, ModBEs.DOUBLE_SLIDING_DOOR_BE);
     public static final DoorParts<SlidingDoorPartProperty> SINGLE_3X3 = new DoorParts<>(SlidingDoorPartProperty.BOTTOM, ModBEs.SINGLE_SLIDING_DOOR_BE);
     public static final DoorParts<SlidingDoorPartProperty> PORTCULLIS_3X3 = new DoorParts<>(SlidingDoorPartProperty.BOTTOM, ModBEs.PORTCULLIS_BE);
+    public static final DoorParts<SlidingDoorPartProperty> MULTIPART = new DoorParts<>(SlidingDoorPartProperty.BOTTOM, ModBEs.MULTIPART);
 
     private final E mainPart;
     private final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> beType;

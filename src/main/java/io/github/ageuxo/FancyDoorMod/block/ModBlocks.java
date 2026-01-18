@@ -43,6 +43,8 @@ public class ModBlocks {
             () -> slidingDoor(DoorParts.SINGLE_3X3));
     public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> IRON_DOUBLE_3X3_SLIDING_DOOR = BLOCKS.register("iron_double_3x3_sliding_door",
             () -> slidingDoor(DoorParts.DOUBLE_3X3));
+    public static final RegistryObject<SlidingDoorBlock<SlidingDoorPartProperty>> MULTIPART_DOOR = BLOCKS.register("multipart_door",
+            () -> slidingDoor(DoorParts.MULTIPART));
 
     private static <P extends Enum<P> & DoorPart & StringRepresentable> @NotNull SlidingDoorBlock<P> slidingDoor(DoorParts<P> doorParts) {
         return new SlidingDoorBlock<>(doorParts, BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).explosionResistance(6).mapColor(MapColor.METAL)){

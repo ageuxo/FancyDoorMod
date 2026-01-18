@@ -6,10 +6,7 @@ import io.github.ageuxo.FancyDoorMod.block.entity.*;
 import io.github.ageuxo.FancyDoorMod.data.*;
 import io.github.ageuxo.FancyDoorMod.model.GroupGeometryLoader;
 import io.github.ageuxo.FancyDoorMod.network.NetRegistry;
-import io.github.ageuxo.FancyDoorMod.render.DetectorBERenderer;
-import io.github.ageuxo.FancyDoorMod.render.PortcullisRenderer;
-import io.github.ageuxo.FancyDoorMod.render.SingleSlidingDoorBERenderer;
-import io.github.ageuxo.FancyDoorMod.render.Sliding2WideDoorBERenderer;
+import io.github.ageuxo.FancyDoorMod.render.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
@@ -108,6 +105,7 @@ public class FancyDoorsMod {
             event.registerBlockEntityRenderer(ModBEs.SINGLE_SLIDING_DOOR_BE.get(), SingleSlidingDoorBERenderer::new);
             event.registerBlockEntityRenderer(ModBEs.PORTCULLIS_BE.get(), PortcullisRenderer::new);
             event.registerBlockEntityRenderer(ModBEs.DETECTOR_BE.get(), DetectorBERenderer::new);
+            event.registerBlockEntityRenderer(ModBEs.MULTIPART.get(), GroupBERenderer::new);
         }
         @SubscribeEvent
         public static void onRegisterModelLoaders(ModelEvent.RegisterGeometryLoaders event) {
