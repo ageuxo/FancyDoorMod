@@ -12,10 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -52,6 +49,10 @@ public class GroupModel implements BakedModel {
         }
 
         return quads;
+    }
+
+    public Collection<BakedGroup> groups() {
+        return groups.values();
     }
 
     @Override
