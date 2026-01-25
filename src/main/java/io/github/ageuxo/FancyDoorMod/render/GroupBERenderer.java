@@ -10,7 +10,6 @@ import io.github.ageuxo.FancyDoorMod.model.GroupModel;
 import io.github.ageuxo.FancyDoorMod.model.animation.KeyframeAnimator;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -50,25 +49,29 @@ public class GroupBERenderer implements BlockEntityRenderer<SlidingDoorBlockEnti
         VertexConsumer buf = bufferSource.getBuffer(RenderType.cutout());
 
         for (BakedGroup group : model.groups()) {
-            poseStack.pushPose();
-
-            // Calculate animation transforms
-            animator.calculate(group.keyframes(), ticks);
-
-            // Use animation transforms
-            Vector3fc translation = animator.translation();
-            poseStack.translate(translation.x(), translation.y(), translation.z());
-            poseStack.rotateAround(animator.rotation(), 0.5f, 0.5f, 0.5f);
-            Vector3fc scale = animator.scale();
-            poseStack.scale(scale.x(), scale.y(), scale.z());
-
-            // Render quads in group
-            for (BakedQuad quad : group.quads()) {
-                buf.putBulkData(poseStack.last(), quad, 1f, 1f, 1f, packedLight, packedOverlay);
-            }
-
-            poseStack.popPose();
+            renderGroup(poseStack, buf, group, packedLight, packedOverlay, ticks);
         }
+    }
+
+    private void renderGroup(PoseStack poseStack, VertexConsumer buf, BakedGroup group, int packedLight, int packedOverlay, int ticks) {
+        poseStack.pushPose();
+
+        // Calculate animation transforms
+        animator.calculate(group.keyframes(), ticks);
+
+        // Use animation transforms
+        Vector3fc translation = animator.translation();
+        poseStack.translate(translation.x(), translation.y(), translation.z());
+        poseStack.rotateAround(animator.rotation(), 0.5f, 0.5f, 0.5f);
+        Vector3fc scale = animator.scale();
+        poseStack.scale(scale.x(), scale.y(), scale.z());
+
+        // Render quads in group
+        for (BakedQuad quad : group.quads()) {
+            buf.putBulkData(poseStack.last(), quad, 1f, 1f, 1f, packedLight, packedOverlay);
+        }
+
+        poseStack.popPose();
     }
 
 }
