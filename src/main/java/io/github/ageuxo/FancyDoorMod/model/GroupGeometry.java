@@ -1,5 +1,6 @@
 package io.github.ageuxo.FancyDoorMod.model;
 
+import net.minecraft.client.renderer.block.model.BlockElement;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
@@ -17,9 +18,11 @@ import java.util.function.Function;
 public class GroupGeometry implements IUnbakedGeometry<GroupGeometry> {
 
     private final List<UnbakedGroup> groups;
+    private final List<BlockElement> elements;
 
-    public GroupGeometry(List<UnbakedGroup> groups) {
+    public GroupGeometry(List<UnbakedGroup> groups, List<BlockElement> elements) {
         this.groups = groups;
+        this.elements = elements;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class GroupGeometry implements IUnbakedGeometry<GroupGeometry> {
         Map<String, BakedGroup> bakedGroups = new HashMap<>();
 
         for (UnbakedGroup group : groups) {
-            BakedGroup baked = group.bake(context, spriteGetter, modelState, modelLocation, postTransform);
+            BakedGroup baked = group.bake(context, spriteGetter, modelState, modelLocation, postTransform, this.elements);
             bakedGroups.put(group.name(), baked);
 
         }
