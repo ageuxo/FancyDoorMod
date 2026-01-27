@@ -20,13 +20,15 @@ public class GroupGeometryLoader implements IGeometryLoader<GroupGeometry> {
     public static final ResourceLocation ID = FancyDoorsMod.modRL("group");
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    private final ExtendedBlockElementDeserializer elementDeserializer = new ExtendedBlockElementDeserializer();
+
     private GroupGeometryLoader() { }
 
     @Override
     public GroupGeometry read(JsonObject jsonObject, JsonDeserializationContext deserializationContext) throws JsonParseException {
         List<BlockElement> allElements = new ArrayList<>();
         for (JsonElement element : GsonHelper.getAsJsonArray(jsonObject, "elements")) {
-            allElements.add(deserializationContext.deserialize(element, BlockElement.class));
+            allElements.add(elementDeserializer.read(element, deserializationContext));
         }
 
         return new GroupGeometry(
