@@ -7,7 +7,7 @@ import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlock;
 import io.github.ageuxo.FancyDoorMod.adastra.SlidingDoorBlockEntity;
 import io.github.ageuxo.FancyDoorMod.model.BakedGroup;
 import io.github.ageuxo.FancyDoorMod.model.GroupModel;
-import io.github.ageuxo.FancyDoorMod.model.animation.KeyframeAnimator;
+import io.github.ageuxo.FancyDoorMod.model.animation.*;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import org.joml.Vector3fc;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collection;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -36,28 +37,37 @@ public class GroupBERenderer implements BlockEntityRenderer<SlidingDoorBlockEnti
         var state = blockEntity.getBlockState();
         var direction = state.getValue(SlidingDoorBlock.FACING);
         var minecraft = Minecraft.getInstance();
-        var model = minecraft.getBlockRenderer().getBlockModel(state);
+        try {
+            GroupModel model = (GroupModel) minecraft.getBlockRenderer().getBlockModel(state);
+            poseStack.rotateAround(Axis.YP.rotationDegrees(direction.toYRot()), 0.5f, 0.5f, 0.5f);
 
-        poseStack.rotateAround(Axis.YP.rotationDegrees(direction.toYRot()), 0.5f, 0.5f, 0.5f);
+            AnimationSet animationSet = KeyframeAnimationLoader.INSTANCE.get(state);
+            renderGroups(poseStack, buffer, packedLight, packedOverlay, blockEntity.slideTicks(), animationSet.get("close"), model.groups());
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("GroupBERenderer tried to render non-GroupModel.");
+        }
 
-        renderGroups(poseStack, buffer, packedLight, packedOverlay, (GroupModel) model, blockEntity.slideTicks());
 
         poseStack.popPose();
     }
 
-    public void renderGroups(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, GroupModel model, int ticks) {
+    public void renderGroups(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, int ticks, Animation animation, Collection<BakedGroup> groups) {
         VertexConsumer buf = bufferSource.getBuffer(RenderType.cutout());
 
-        for (BakedGroup group : model.groups()) {
-            renderGroup(poseStack, buf, group, packedLight, packedOverlay, ticks);
+        // Render top level groups
+        for (BakedGroup group : groups) {
+            renderGroup(poseStack, buf, group, packedLight, packedOverlay, ticks, animation.get(group));
+
+            // Render children
+            renderGroups(poseStack, bufferSource, packedLight, packedOverlay, ticks, animation, group.children());
         }
     }
 
-    private void renderGroup(PoseStack poseStack, VertexConsumer buf, BakedGroup group, int packedLight, int packedOverlay, int ticks) {
+    private void renderGroup(PoseStack poseStack, VertexConsumer buf, BakedGroup group, int packedLight, int packedOverlay, int ticks, Keyframes keyframes) {
         poseStack.pushPose();
 
         // Calculate animation transforms
-        animator.calculate(group.keyframes(), ticks);
+        animator.calculate(keyframes, ticks);
 
         // Use animation transforms
         Vector3fc translation = animator.translation();
