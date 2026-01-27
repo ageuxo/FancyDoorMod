@@ -1,9 +1,15 @@
 package io.github.ageuxo.FancyDoorMod.model.animation;
 
+import com.mojang.serialization.Codec;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Keyframes {
+    public static final Codec<Keyframes> CODEC = Transform.Set.CODEC.xmap(Transform.Set::toKeyframes, Transform.Set::fromKeyframes);
+
+    public static final Keyframes EMPTY = new Keyframes(Map.of(0, Transform.ZERO));
+
     private final TreeMap<Integer, Transform> keyframes;
     private final int lastFrame;
 
