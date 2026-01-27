@@ -13,18 +13,18 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "fancydoors:multipart_door",
+              "block": "fancydoors:double_layered",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "part": "bottom"
               }
             }
           ],
-          "name": "fancydoors:multipart_door"
+          "name": "fancydoors:double_layered"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "fancydoors:blocks/multipart_door"
+  "random_sequence": "fancydoors:blocks/double_layered"
 }

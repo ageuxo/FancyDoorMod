@@ -27,7 +27,7 @@ public class ModBEs {
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> DOUBLE_SLIDING_DOOR_BE = BE_TYPES.register("double_sliding_door",
             () -> registerBlockEntityType(SlidingDoorBlockEntity::new, ModBlocks.IRON_DOUBLE_3X3_SLIDING_DOOR.get(), ModBlocks.DOUBLE_3X3_SLIDING_DOOR.get(), ModBlocks.DOUBLE_3X3_CAUTION_SLIDING_DOOR.get()));
     public static final RegistryObject<BlockEntityType<SlidingDoorBlockEntity>> MULTIPART = BE_TYPES.register("multipart",
-            () -> registerBlockEntityType(MultiPartDoorBlockEntity::new, ModBlocks.MULTIPART_DOOR.get()));
+            () -> registerBlockEntityType(MultiPartDoorBlockEntity::new, ModBlocks.DOUBLE_LAYERED.get()));
 
     public static <BE extends BlockEntity> BlockEntityType<BE> registerBlockEntityType(BlockEntityType.BlockEntitySupplier<BE> supplier, Block... blocks) {
         //noinspection DataFlowIssue
