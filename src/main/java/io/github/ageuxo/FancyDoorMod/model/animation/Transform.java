@@ -22,7 +22,7 @@ public class Transform {
             ExtraCodecs.VECTOR3F.optionalFieldOf("scale", new Vector3f()).forGetter(t->t.scale)
     ).apply(instance, Transform::new));
 
-    public static final Transform ZERO = new Transform(new Vector3f(), new Quaternionf(), new Vector3f());
+    public static final Transform ZERO = new Transform(new Vector3f(), new Quaternionf(), new Vector3f(1));
 
     private final Vector3f translation;
     private final Quaternionf rotation;
@@ -50,7 +50,7 @@ public class Transform {
         public static final Codec<Set> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("position", Set.defaultTransformMap()).forGetter(Set::translations),
                 Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("rotation", Set.defaultTransformMap()).forGetter(Set::rotations),
-                Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("scale", Set.defaultTransformMap()).forGetter(Set::scales)
+                Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("scale", Set.defaultScaleMap()).forGetter(Set::scales)
         ).apply(instance, Set::new));
 
         public Keyframes toKeyframes() {
@@ -110,6 +110,12 @@ public class Transform {
         private static Map<Float, Vector3f> defaultTransformMap() {
             HashMap<Float, Vector3f> map = new HashMap<>();
             map.put(0f, new Vector3f());
+            return map;
+        }
+
+        private static Map<Float, Vector3f> defaultScaleMap() {
+            HashMap<Float, Vector3f> map = new HashMap<>();
+            map.put(0f, new Vector3f(1));
             return map;
         }
 
