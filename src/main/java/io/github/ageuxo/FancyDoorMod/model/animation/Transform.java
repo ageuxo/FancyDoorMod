@@ -2,6 +2,7 @@ package io.github.ageuxo.FancyDoorMod.model.animation;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.ageuxo.FancyDoorMod.Utils;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.util.ExtraCodecs;
 import org.joml.Quaternionf;
@@ -48,9 +49,9 @@ public class Transform {
 
     public record Set(Map<Float, Vector3f> translations, Map<Float, Vector3f> rotations, Map<Float, Vector3f> scales) {
         public static final Codec<Set> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("position", Set.defaultTransformMap()).forGetter(Set::translations),
-                Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("rotation", Set.defaultTransformMap()).forGetter(Set::rotations),
-                Codec.unboundedMap(Codec.FLOAT, ExtraCodecs.VECTOR3F).optionalFieldOf("scale", Set.defaultScaleMap()).forGetter(Set::scales)
+                Codec.unboundedMap(Utils.FLOAT_KEY, ExtraCodecs.VECTOR3F).optionalFieldOf("position",Set.defaultTransformMap()).forGetter(Set::translations),
+                Codec.unboundedMap(Utils.FLOAT_KEY, ExtraCodecs.VECTOR3F).optionalFieldOf("rotation", Set.defaultTransformMap()).forGetter(Set::rotations),
+                Codec.unboundedMap(Utils.FLOAT_KEY, ExtraCodecs.VECTOR3F).optionalFieldOf("scale", Set.defaultScaleMap()).forGetter(Set::scales)
         ).apply(instance, Set::new));
 
         public Keyframes toKeyframes() {
@@ -124,9 +125,9 @@ public class Transform {
     public static class Builder {
 
         private final float frame;
-        private Vector3f translation;
-        private Vector3f rotation;
-        private Vector3f scale;
+        private Vector3f translation = new Vector3f();
+        private Vector3f rotation = new Vector3f();
+        private Vector3f scale = new Vector3f(1);
 
         public Builder(float frame) {
             this.frame = frame;
