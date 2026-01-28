@@ -71,7 +71,7 @@ public class GroupBERenderer implements BlockEntityRenderer<SlidingDoorBlockEnti
 
         // Use animation transforms
         Vector3fc translation = animator.translation();
-        poseStack.translate(translation.x(), translation.y(), translation.z());
+        poseStack.translate(translation.x() / 16, translation.y() / 16, translation.z() / 16);
         poseStack.rotateAround(animator.rotation(), 0.5f, 0.5f, 0.5f);
         Vector3fc scale = animator.scale();
         poseStack.scale(scale.x(), scale.y(), scale.z());
