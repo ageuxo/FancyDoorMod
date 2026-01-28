@@ -42,7 +42,7 @@ public class GroupBERenderer implements BlockEntityRenderer<SlidingDoorBlockEnti
             poseStack.rotateAround(Axis.YP.rotationDegrees(direction.toYRot()), 0.5f, 0.5f, 0.5f);
 
             AnimationSet animationSet = KeyframeAnimationLoader.INSTANCE.get(state);
-            renderGroups(poseStack, buffer, packedLight, packedOverlay, blockEntity.slideTicks(), animationSet.get("close"), model.groups());
+            renderGroups(poseStack, buffer, packedLight, packedOverlay, blockEntity.slideTicks(), animationSet.get("open"), model.groups());
         } catch (ClassCastException e) {
             throw new IllegalStateException("GroupBERenderer tried to render non-GroupModel.");
         }
