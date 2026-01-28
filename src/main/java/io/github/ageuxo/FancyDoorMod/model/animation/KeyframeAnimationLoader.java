@@ -29,7 +29,6 @@ public class KeyframeAnimationLoader extends SimpleJsonResourceReloadListener {
     public static final KeyframeAnimationLoader INSTANCE = new KeyframeAnimationLoader();
 
     private final Map<ResourceLocation, AnimationSet> animationSets = new HashMap<>();
-    private final Map<BlockState, AnimationSet> stateLookupCache = new HashMap<>();
 
     private KeyframeAnimationLoader() {
         super(new Gson(), "animations");
@@ -72,16 +71,12 @@ public class KeyframeAnimationLoader extends SimpleJsonResourceReloadListener {
     }
 
     public AnimationSet get(BlockState state) {
-        return this.stateLookupCache.computeIfAbsent(state, blockState -> {
-            Optional<ResourceKey<Block>> keyOptional = blockState.getBlockHolder().unwrapKey();
-            AnimationSet set;
-            if (keyOptional.isPresent()) {
-                set = get(keyOptional.get().location());
-            } else {
-                set = AnimationSet.EMPTY;
-                LOGGER.warn("Attempted to look up state with unbound holder!");
-            }
-            return set;
-        });
+        Optional<ResourceKey<Block>> keyOptional = state.getBlockHolder().unwrapKey();
+        if (keyOptional.isPresent()) {
+            var key = keyOptional.get();
+            return get(key.location());
+        }
+
+        return AnimationSet.EMPTY;
     }
 }
